@@ -1,0 +1,32 @@
+<footer>
+    <div class="copyright">
+        &copy; Atmosify 2024, All Rights Reserved.
+        <br>
+        By using our website you agree to the <a href="tos.php">Terms & Conditions</a>, <a href="privacy.php">Privacy Policy</a>, and <a href="cookies.php">Cookie Policy</a>.
+    </div>
+    <div class="settings-icon-container">
+        <div class="settings-icon" onclick="openSettingsModal()"><i class='bx bx-cog bx-spin' ></i></div>
+    </div>
+
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-container">
+                <span class="close" onclick="closeSettingsModal()">&times;</span>
+                <label for="username" >Name</label>
+                <input type="text" id="username" placeholder="Enter your name">
+                <label for="location" placeholder="Enter city name">Location</label>
+                <input type="text" id="location" placeholder="Enter Location">
+                <button onclick="updateSettings()">Save</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="cookie-banner" class="cookie-banner">
+        <h2><u>Welcome to <b>Atmosify!</b></u></h2>
+        <p>Our site uses cookies to improve your experience. By clicking <b>"Accept Cookies"</b> you agree to their use
+            for personalized content and enhanced services. Rest assured, your privacy is a <u>priority</u>, and
+            information is handled in accordance with our policies. <i>Enjoy your time at Atmosify!</i></p>
+        <button onclick="acceptCookies()">Accept Cookies</button>
+        <button onclick="declineCookies()">Decline Cookies</button>
+    </div>
+</footer>
