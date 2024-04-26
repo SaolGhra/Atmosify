@@ -1,0 +1,125 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #cfc6ca;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 100px auto;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.555);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.164);
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    flex-direction: column;
+    border: 3px solid rgba(255, 255, 255, 0.25);
+    color: white;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+}
+
+h1 {
+    color: #5c5555;
+    font-weight: bolder;
+}
+
+p {
+    color: #5c5555;
+    font-weight: bolder;
+    margin-bottom: 20px;
+}
+
+/* Map Container */
+#map {
+    height: 300px;
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+/* Dark Mode Toggle */
+.dark-mode-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+}
+
+.dark-mode-toggle button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.dark-mode-toggle svg {
+    fill: #000;
+}
+
+.dark-mode-toggle button:focus {
+    outline: none;
+}
+
+.dark-mode {
+    background-color: #222;
+    color: #fff;
+}
+
+.dark-mode-toggle.dark-mode svg {
+    fill: #fff;
+}
+
+/* cookies modal */
+.cookies-modal {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: #968c91;
+    color: #756f6f;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+    max-width: 400px;
+}
+
+.cookies-content p {
+    color: #ffffff;
+}
+
+
+.cookies-modal .buttons {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.cookies-modal button {
+    padding: 8px 16px;
+    margin: 0 5px;
+    cursor: pointer;
+    background-color: #fff;
+    color: #746e6e;
+    border: none;
+    border-radius: 4px;
+}
+
+.cookies-modal button:hover {
+    background-color: #f0f0f0;
+    color: #5a5a5a;
+}
+
+@media (max-width: 600px) {
+    .container {
+        top: 5%;
+        transform: translate(-50%, -10%);
+    }
+}

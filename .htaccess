@@ -13,7 +13,3 @@ RewriteCond %{REQUEST_FILENAME}\.html -f
 # Here we actually show the page that has the .html extension
 
 RewriteRule ^(.\*)$ $1.html [NC,L]
-
-# To rewrite the name of a redirect so instead of it being pages/ipwho it just does /ipwho
-
-RewriteRule ^pages/ipwho/?$ /ipwho [NC,L]
