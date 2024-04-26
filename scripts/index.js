@@ -27,14 +27,12 @@ function displayWeatherInfo(weatherData, location) {
         return;
     }
 
-    const weatherCode = weatherData.current.weather_code;
     const temperature = Math.round(weatherData.current.temperature_2m);
     const humidity = weatherData.current.relative_humidity_2m;
     const windSpeed = weatherData.current.wind_speed_10m;
 
     const glassContainer = document.querySelector('.glass-container');
     glassContainer.innerHTML = `
-        <p>weathercode: ${weatherCode}</p>
         <p>Location: ${location}</p>
         <p>Temperature: ${temperature}°C</p>
         <p>Humidity: ${humidity} g/kg</p>

@@ -1,5 +1,30 @@
 {
   "dependencies": {
     "particles.js": "^2.0.0"
-  }
+  },
+  "name": "atmosify",
+  "description": "Atmosify is a multiuse utility weather website that doesn't require API keys.",
+  "version": "1.2.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SaolGhra/Atmosify.git"
+  },
+  "keywords": [
+    "Weather",
+    "ip",
+    "games",
+    "speedtest",
+    "more"
+  ],
+  "author": "SaolGhra, Makeoutcy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SaolGhra/Atmosify/issues"
+  },
+  "homepage": "https://github.com/SaolGhra/Atmosify#readme"
 }
