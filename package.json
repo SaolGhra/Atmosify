@@ -8,7 +8,6 @@
   "description": "Atmosify is a multiuse utility weather website that doesn't require API keys.",
   "version": "1.2.0",
   "main": "index.js",
-  "type": "module",
   "devDependencies": {
     "webpack": "^5.91.0",
     "webpack-cli": "^5.1.4"
