@@ -3,7 +3,7 @@ async function getWeatherData(latitude, longitude) {
     const params = new URLSearchParams({
         latitude: latitude,
         longitude: longitude,
-        current: ["temperature_2m", "relative_humidity_2m", "wind_speed_10m"],
+        current: ["temperature_2m", "relative_humidity_2m", "wind_speed_10m", "precipitation", "rain", "showers", "snowfall", "wind_direction_10m", "weather_code"],
         wind_speed_unit: "mph",
         timeformat: "unixtime"
     });
@@ -21,25 +21,24 @@ async function getWeatherData(latitude, longitude) {
 }
 
 // Function to display weather information
-function displayWeatherInfo(weatherData) {
+function displayWeatherInfo(weatherData, location) {
     if (!weatherData || !weatherData.current) {
         console.error('Invalid weather data:', weatherData);
         return;
     }
 
-    const latitude = weatherData.latitude;
-    const longitude = weatherData.longitude;
-    const temperature = weatherData.current.temperature_2m;
+    const weatherCode = weatherData.current.weather_code;
+    const temperature = Math.round(weatherData.current.temperature_2m);
     const humidity = weatherData.current.relative_humidity_2m;
     const windSpeed = weatherData.current.wind_speed_10m;
 
     const glassContainer = document.querySelector('.glass-container');
     glassContainer.innerHTML = `
-        <p>Latitude: ${latitude}</p>
-        <p>Longitude: ${longitude}</p>
-        <p>Temperature: ${temperature}</p>
-        <p>Humidity: ${humidity}</p>
-        <p>Wind Speed: ${windSpeed}</p>
+        <p>weathercode: ${weatherCode}</p>
+        <p>Location: ${location}</p>
+        <p>Temperature: ${temperature}°C</p>
+        <p>Humidity: ${humidity} g/kg</p>
+        <p>Wind Speed: ${windSpeed} Mph</p>
     `;
 }
 
@@ -50,9 +49,18 @@ function getGeolocation() {
             async (position) => {
                 const latitude = position.coords.latitude;
                 const longitude = position.coords.longitude;
+                
+                // Reverse geocoding
+                const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`);
+                const data = await response.json();
+                const suburb = data.address.suburb || data.address.town || data.address.county;
+                const city = data.address.city || data.address.county;
+
+                const location = `${suburb}, ${city}`;
+
                 const weatherData = await getWeatherData(latitude, longitude);
                 if (weatherData) {
-                    displayWeatherInfo(weatherData);
+                    displayWeatherInfo(weatherData, location);
                 }
             },
             (error) => {
