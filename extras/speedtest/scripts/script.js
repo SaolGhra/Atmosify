@@ -1,76 +1,41 @@
-document.getElementById("start-button").addEventListener("click", function () {
-  var startTime, endTime;
-  var fileSizeMB = 10;
-  var uploadSpeedMbps;
-  var downloadSpeedMbps;
-  var pingTime;
+import speedTest from "../../../node_modules/speed-test/cli.js";
 
-  // Download test
-  var downloadXHR = new XMLHttpRequest();
-  downloadXHR.open("GET", "https://example.com/large-file.bin", true);
-  downloadXHR.responseType = "blob";
+const startButton = document.getElementById("start-button");
+const resultsElement = document.getElementById("result");
 
-  downloadXHR.onloadstart = function () {
-    startTime = performance.now();
-  };
+startButton.addEventListener("click", async () => {
+  try {
+    const { downloadSpeed, uploadSpeed, ping } = await speedTest();
 
-  downloadXHR.onload = function () {
-    endTime = performance.now();
-    var downloadTime = endTime - startTime;
-    downloadSpeedMbps = (fileSizeMB * 8) / (downloadTime / 1000);
-    pingServer();
-  };
+    // Retrieve local IP address using a separate function for clarity
+    const localIPAddress = await getLocalIPAddress();
 
-  downloadXHR.send();
+    // Optionally determine location using an external API (not included in this example)
+    const location = "Location unavailable";
 
-  // Ping test
-  function pingServer() {
-    var pingXHR = new XMLHttpRequest();
-    pingXHR.open("HEAD", "https://example.com/ping-test", true);
-
-    pingXHR.onloadstart = function () {
-      startTime = performance.now();
-    };
-
-    pingXHR.onload = function () {
-      endTime = performance.now();
-      pingTime = endTime - startTime;
-      uploadTest();
-    };
-
-    pingXHR.send();
-  }
-
-  // Upload test
-  function uploadTest() {
-    var formData = new FormData();
-    for (var i = 0; i < fileSizeMB * 1024 * 1024; i++) {
-      formData.append("file", "0");
-    }
-    var uploadXHR = new XMLHttpRequest();
-    uploadXHR.open("POST", "https://example.com/upload", true);
-
-    uploadXHR.onloadstart = function () {
-      startTime = performance.now();
-    };
-
-    uploadXHR.onload = function () {
-      endTime = performance.now();
-      var uploadTime = endTime - startTime;
-      uploadSpeedMbps = (fileSizeMB * 8) / (uploadTime / 1000);
-      displayResult(downloadSpeedMbps, uploadSpeedMbps, pingTime);
-    };
-
-    uploadXHR.send(formData);
-  }
-
-  function displayResult(downloadSpeedMbps, uploadSpeedMbps, pingTime) {
-    downloadSpeedMbps = downloadSpeedMbps.toFixed(2);
-    uploadSpeedMbps = uploadSpeedMbps.toFixed(2);
-    pingTime = pingTime.toFixed(2);
-    var result = "Download Speed: " + downloadSpeedMbps + " Mbps<br>";
-    result += "Upload Speed: " + uploadSpeedMbps + " Mbps<br>";
-    result += "Ping: " + pingTime + " ms";
-    document.getElementById("result").innerHTML = result;
+    resultsElement.innerHTML = `
+      Upload Speed: ${uploadSpeed.toFixed(2)} Mbps
+      Download Speed: ${downloadSpeed.toFixed(2)} Mbps
+      Ping: ${ping.toFixed(2)} ms
+      Local IP Address: ${localIPAddress}
+      Location: ${location}
+    `;
+  } catch (error) {
+    console.error("Error running speed test:", error);
+    resultsElement.innerHTML = "Speed test failed. Please try again.";
   }
 });
+
+async function getLocalIPAddress() {
+  const interfaces = require("os").networkInterfaces();
+  for (const name of Object.keys(interfaces)) {
+    for (const address of interfaces[name]) {
+      if (address.family === "IPv4" && !address.internal) {
+        return address.address;
+      }
+    }
+  }
+  return "Local IP address unavailable";
+}
+// https://raw.githubusercontent.com/SaolGhra/Atmosify/main/assets/speedtest/ping.json
+// https://raw.githubusercontent.com/SaolGhra/Atmosify/main/assets/speedtest/articles.csv
