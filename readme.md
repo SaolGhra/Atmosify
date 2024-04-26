@@ -1,6 +1,6 @@
-# AtmosifyV2
+# Atmosify
 
-AtmosifyV2 is a multiuse utility weather website that doesn't require API keys.
+Atmosify is a multiuse utility weather website that doesn't require API keys.
 
 ## Clone the Repository
 
@@ -11,25 +11,25 @@ To clone this repository, follow these steps:
 3. Run the following command to clone the repository:
 
    ```bash
-   git clone https://github.com/SaolGhra/AtmosifyV2.git
+   git clone https://github.com/SaolGhra/Atmosify.git
    ```
 
 4. Once the cloning process is complete, navigate into the cloned directory:
 
    ```bash
-   cd AtmosifyV2
+   cd Atmosify
    ```
 
 ## Usage
 
-To use AtmosifyV2, follow these steps:
+To use Atmosify, follow these steps:
 
 1. Open the `index.html` file in your preferred web browser.
 2. You can now explore the multiuse utility weather website without the need for API keys.
 
 ## Contributing
 
-If you would like to contribute to AtmosifyV2, please follow these guidelines:
+If you would like to contribute to Atmosify, please follow these guidelines:
 
 1. Fork the repository on GitHub.
 2. Make your changes in a new branch.
