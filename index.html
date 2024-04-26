@@ -7,6 +7,20 @@
     <link rel="icon" href="./assets/weather-logo.png" />
     <link rel="stylesheet" href="styles/styles.css" />
   </head>
+  <!-- Google tag (gtag.js) -->
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-HME8PQRCDV"
+  ></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "G-HME8PQRCDV");
+  </script>
   <body>
     <header>
       <section id="left">
@@ -17,7 +31,7 @@
           <ul>
             <a href="#"><li>Weather</li></a>
             <a href="extras/ipwho/"><li>IP</li></a>
-            <a href="#"><li>Games</li></a>
+            <a href="extras/infinite-rush/"><li>Games</li></a>
             <a href="extras/speedtest/"><li>Speedtest</li></a>
           </ul>
         </nav>

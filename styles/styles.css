@@ -5,14 +5,14 @@
 
 :root {
   --black: #222831;
-  --gray: #31363F;
-  --teal: #76ABAE;
-  --white: #EEEEEE;
+  --gray: #31363f;
+  --teal: #76abae;
+  --white: #eeeeee;
 }
 
 @font-face {
-  font-family: 'JetBrains Mono';
-  src: url('./fonts/JetBrainsMono-Regular.ttf');
+  font-family: "JetBrains Mono";
+  src: url("./fonts/JetBrainsMono-Regular.ttf");
 }
 
 ::-webkit-scrollbar {
@@ -24,7 +24,7 @@ body {
   overflow: hidden;
   display: flex;
   justify-content: center;
-  font-family: 'JetBrains Mono', sans-serif;
+  font-family: "JetBrains Mono", sans-serif;
 }
 
 #particles-js {
@@ -53,7 +53,7 @@ header section#left {
   width: 20%;
   display: flex;
   justify-content: center;
-  align-items: center
+  align-items: center;
 }
 
 header section#left img {
@@ -95,9 +95,7 @@ header section#right nav ul a {
   width: max-content;
   color: var(--white);
   text-decoration: none;
-  transition: 
-    scale 100ms ease-in-out,
-    border 100ms ease-in-out;
+  transition: scale 100ms ease-in-out, border 100ms ease-in-out;
 }
 
 header section#right nav ul a:hover {
@@ -128,3 +126,21 @@ header section#right nav ul a:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.glass-container p {
+  display: block;
+  padding: 8px;
+  border-radius: 16px;
+  background-color: var(--teal);
+  color: var(--white);
+  text-align: center;
+  margin-top: 16px;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* Add the following properties to stack the bubbles vertically */
+  margin-top: 8px;
+  top: 5vh;
+  bottom: 0;
+  width: 50%;
+}
