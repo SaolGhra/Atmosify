@@ -1,17 +1,17 @@
 // Function to get weather data using Open Meteo API
 async function getWeatherData(latitude, longitude) {
-    const params = {
-        "latitude": 52.52,
-        "longitude": 13.41,
-        "current": ["temperature_2m", "relative_humidity_2m", "wind_speed_10m"],
-        "wind_speed_unit": "mph",
-        "timeformat": "unixtime"
-    };
+    const params = new URLSearchParams({
+        latitude: latitude,
+        longitude: longitude,
+        current: ["temperature_2m", "relative_humidity_2m", "wind_speed_10m"],
+        wind_speed_unit: "mph",
+        timeformat: "unixtime"
+    });
 
-    const apiUrl = `https://api.open-meteo.com/v1/forecast`;
+    const apiUrl = `https://api.open-meteo.com/v1/forecast?${params.toString()}`;
 
     try {
-        const response = await fetch(apiUrl, params);
+        const response = await fetch(apiUrl);
         const data = await response.json();
         return data;
     } catch (error) {
@@ -22,22 +22,22 @@ async function getWeatherData(latitude, longitude) {
 
 // Function to display weather information
 function displayWeatherInfo(weatherData) {
-    if (!weatherData || !weatherData.city) {
+    if (!weatherData || !weatherData.current) {
         console.error('Invalid weather data:', weatherData);
         return;
     }
 
-    const town = weatherData.city.name;
-    const temperature = weatherData.hourly.temperature_2m_1h[0].value;
-    const realFeel = weatherData.hourly.apparent_temperature_2m_1h[0].value;
-    const humidity = weatherData.hourly.humidity_2m_1h[0].value;
-    const windSpeed = weatherData.hourly.windspeed_10m_1h[0].value;
+    const latitude = weatherData.latitude;
+    const longitude = weatherData.longitude;
+    const temperature = weatherData.current.temperature_2m;
+    const humidity = weatherData.current.relative_humidity_2m;
+    const windSpeed = weatherData.current.wind_speed_10m;
 
     const glassContainer = document.querySelector('.glass-container');
     glassContainer.innerHTML = `
-        <p>Town: ${town}</p>
+        <p>Latitude: ${latitude}</p>
+        <p>Longitude: ${longitude}</p>
         <p>Temperature: ${temperature}</p>
-        <p>Real Feel: ${realFeel}</p>
         <p>Humidity: ${humidity}</p>
         <p>Wind Speed: ${windSpeed}</p>
     `;

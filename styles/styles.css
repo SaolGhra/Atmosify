@@ -81,12 +81,13 @@ header section#right nav ul li {
   padding: 16px;
   width: 100px;
   text-align: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
 }
 
-header section#right nav ul li::after,
-header section#right nav ul li::before {
-  background-color: rgba(238, 238, 238, 0.2);
-  
+header section#right nav ul li p {
+  margin-left: 8px;
 }
 
 header section#right nav ul a {
@@ -95,15 +96,16 @@ header section#right nav ul a {
   color: var(--white);
   text-decoration: none;
   transition: 
-    scale 200ms ease-in-out,
-    background-color 200ms ease-in-out;
+    scale 100ms ease-in-out,
+    border 100ms ease-in-out;
 }
 
 header section#right nav ul a:hover {
   scale: 1.25;
   background-color: var(--gray);
   border-radius: 8px;
-  border-left: 0;
+  z-index: 100;
+  border: 1px solid rgba(238, 238, 238, 0.2);
 }
 
 .page {
