@@ -1,12 +1,17 @@
 {
   "dependencies": {
-    "particles.js": "^2.0.0"
+    "fast-speedtest-api": "^0.3.2",
+    "particles.js": "^2.0.0",
+    "speed-test": "^3.0.0"
   },
   "name": "atmosify",
   "description": "Atmosify is a multiuse utility weather website that doesn't require API keys.",
   "version": "1.2.0",
   "main": "index.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
