@@ -4,7 +4,12 @@ const resultsElement = document.getElementById("result");
 startButton.addEventListener("click", async () => {
   try {
     const downloadSpeed = await getDownloadSpeed();
-    const uploadSpeed = await getUploadSpeed();
+    let uploadSpeed;
+    try {
+      uploadSpeed = await getUploadSpeed();
+    } catch (error) {
+      console.error("Error getting upload speed:", error);
+    }
     const ping = await getPing();
 
     const localIPAddresses = await getLocalIPAddress();
@@ -18,16 +23,16 @@ startButton.addEventListener("click", async () => {
         : "None";
     const localIPAddress = `IPv4: ${ipv4Addresses}, IPv6: ${ipv6Addresses}`;
 
-    const server = await getServer();
-    const location = "Location unavailable";
+    const location = await getLocationFromCoordinates();
 
     resultsElement.innerHTML = `
-      Upload Speed: ${uploadSpeed.toFixed(2)} Mbps
-      Download Speed: ${downloadSpeed.toFixed(2)} Mbps
-      Ping: ${ping.toFixed(2)} ms
-      Local IP Address: ${localIPAddress}
-      Server: ${server}
-      Location: ${location}
+      <p>Upload Speed: ${
+        uploadSpeed ? uploadSpeed.toFixed(2) : "Not available"
+      } Mbps</p>
+      <p>Download Speed: ${downloadSpeed.toFixed(2)} Mbps</p>
+      <p>Ping: ${ping.toFixed(2)} ms</p>
+      <p>Local IP Address: ${localIPAddress}</p>
+      <p>Location: ${location}</p>
     `;
   } catch (error) {
     console.error("Error running speed test:", error);
@@ -107,26 +112,6 @@ async function getPing() {
   return parseFloat(ping);
 }
 
-// Find the connected server
-async function getServer() {
-  return new Promise((resolve, reject) => {
-    const request = new XMLHttpRequest();
-    request.open("GET", "https://api.ipify.org?format=json");
-    request.onload = () => {
-      if (request.status === 200) {
-        const data = JSON.parse(request.responseText);
-        resolve(data.ip);
-      } else {
-        reject(new Error("Failed to get server IP address"));
-      }
-    };
-    request.onerror = () => {
-      reject(new Error("Failed to get server IP address"));
-    };
-    request.send();
-  });
-}
-
 async function getLocalIPAddress() {
   return new Promise((resolve, reject) => {
     const ipPromise = new Promise((resolve) => {
@@ -195,5 +180,48 @@ async function getLocalIPAddress() {
       .catch((error) => {
         reject(error);
       });
+  });
+}
+
+// Function to get the users location
+async function getLocation() {
+  return new Promise((resolve, reject) => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          resolve({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    } else {
+      reject(new Error("Geolocation is not available"));
+    }
+  });
+}
+
+//function to make that long and lat into a location
+async function getLocationFromCoordinates(latitude, longitude) {
+  return new Promise((resolve, reject) => {
+    const url = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`;
+
+    const request = new XMLHttpRequest();
+    request.open("GET", url);
+    request.onload = () => {
+      if (request.status === 200) {
+        const data = JSON.parse(request.responseText);
+        resolve(data.locality);
+      } else {
+        reject(new Error("Failed to get location"));
+      }
+    };
+    request.onerror = () => {
+      reject(new Error("Failed to get location"));
+    };
+    request.send();
   });
 }
