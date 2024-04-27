@@ -1,14 +1,21 @@
-function measureDownloadSpeed(url) {
+function measureDownloadSpeed(url, duration) {
   return new Promise((resolve, reject) => {
-    const startTime = performance.now();
     let downloadedBytes = 0;
+    const startTime = performance.now();
+    const controller = new AbortController();
+    const signal = controller.signal;
 
-    fetch(url)
+    const timer = setTimeout(() => {
+      controller.abort();
+    }, duration * 1000);
+
+    fetch(url, { signal })
       .then((response) => {
         const reader = response.body.getReader();
 
         reader.read().then(function processChunk({ done, value }) {
-          if (done) {
+          if (done || controller.signal.aborted) {
+            clearTimeout(timer);
             const endTime = performance.now();
             const elapsedTime = (endTime - startTime) / 1000;
             const downloadSpeedMbps =
@@ -22,16 +29,18 @@ function measureDownloadSpeed(url) {
         });
       })
       .catch((err) => {
-        reject(err);
+        if (err.name === "AbortError") {
+          console.log("Download speed test aborted");
+        } else {
+          reject(err);
+        }
       });
   });
 }
 
-window.measureDownloadSpeed = measureDownloadSpeed;
-
 const url =
   "https://raw.githubusercontent.com/SaolGhra/Atmosify/main/assets/speedtest/articles.csv";
-measureDownloadSpeed(url)
+measureDownloadSpeed(url, 15)
   .then((downloadSpeed) => {
     console.log(`Download speed: ${downloadSpeed.toFixed(2)} Mbps`);
   })
