@@ -140,7 +140,8 @@ header section#right nav ul a:hover {
 .container .weather {
   display: flex;
   justify-content: center;
-  flex-direction: column;
+  flex-direction: row;
+  gap: 8px;
   align-items: center;
   color: var(--white);
 }

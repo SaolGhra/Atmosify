@@ -49,6 +49,7 @@ function displayWeatherInfo(weatherData, location) {
   container.innerHTML = `
       <div class="weather">
         <h2>${location}</h2>
+        <span class="divider">|</span>
         <p>${temperature}°C</p>
       </div>
       <div class="stats">
