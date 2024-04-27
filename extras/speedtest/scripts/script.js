@@ -1,37 +1,22 @@
+// index.js
 const startButton = document.getElementById("start-button");
 const resultsElement = document.getElementById("result");
 
-startButton.addEventListener("click", async () => {
-  const upload = await import("./upload.js");
-  const download = await import("./download.js");
-  const ping = await import("./ping.js");
-  const location = await import("./location.js");
+function startTest() {}
 
-  const uploadModule = upload.default;
-  const downloadModule = download.default;
-  const pingModule = ping.default;
-  const locationModule = location.default;
+function displayResults() {}
 
-  const uploadResult = uploadModule();
-  const downloadResult = downloadModule();
-  const pingResult = pingModule();
-  const locationResult = locationModule();
+function uploadTest() {}
 
-  const uploadElement = document.createElement("p");
-  uploadElement.textContent = uploadResult;
-  resultsElement.appendChild(uploadElement);
+function downloadTest() {}
 
-  const downloadElement = document.createElement("p");
-  downloadElement.textContent = downloadResult;
-  resultsElement.appendChild(downloadElement);
+function pingTest() {}
 
-  const pingElement = document.createElement("p");
-  pingElement.textContent = pingResult;
-  resultsElement.appendChild(pingElement);
+function getLocation() {}
 
-  const locationElement = document.createElement("p");
-  locationElement.textContent = locationResult;
-  resultsElement.appendChild(locationElement);
-});
+function getISP() {}
 
+function getIP() {}
+
+// https://raw.githubusercontent.com/SaolGhra/Atmosify/main/assets/speedtest/article.csv
 // https://raw.githubusercontent.com/SaolGhra/Atmosify/main/assets/speedtest/ping.json
