@@ -1,44 +1,36 @@
-const http = require("http");
-const fs = require("fs");
-
 function measureDownloadSpeed(url) {
   return new Promise((resolve, reject) => {
-    const startTime = Date.now();
+    const startTime = performance.now();
     let downloadedBytes = 0;
 
-    const file = fs.createWriteStream("tempFile");
+    fetch(url)
+      .then((response) => {
+        const reader = response.body.getReader();
 
-    http
-      .get(url, (response) => {
-        response.on("data", (data) => {
-          downloadedBytes += data.length;
+        reader.read().then(function processChunk({ done, value }) {
+          if (done) {
+            const endTime = performance.now();
+            const elapsedTime = (endTime - startTime) / 1000;
+            const downloadSpeedMbps =
+              (downloadedBytes * 8) / (elapsedTime * 1024 * 1024);
+            resolve(downloadSpeedMbps);
+            return;
+          }
+
+          downloadedBytes += value.length;
+          return reader.read().then(processChunk);
         });
-
-        response.on("end", () => {
-          const endTime = Date.now();
-          const elapsedTime = (endTime - startTime) / 1000;
-          const downloadSpeedMbps =
-            (downloadedBytes * 8) / (elapsedTime * 1024 * 1024);
-
-          fs.unlink("tempFile", (err) => {
-            if (err) {
-              reject(err);
-            } else {
-              resolve(downloadSpeedMbps);
-            }
-          });
-        });
-
-        response.pipe(file);
       })
-      .on("error", (err) => {
+      .catch((err) => {
         reject(err);
       });
   });
 }
 
-// Usage example
-const url = "http://example.com/file-to-download";
+window.measureDownloadSpeed = measureDownloadSpeed;
+
+const url =
+  "https://raw.githubusercontent.com/SaolGhra/Atmosify/main/assets/speedtest/articles.csv";
 measureDownloadSpeed(url)
   .then((downloadSpeed) => {
     console.log(`Download speed: ${downloadSpeed.toFixed(2)} Mbps`);

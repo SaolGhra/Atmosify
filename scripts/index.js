@@ -43,10 +43,16 @@ function displayWeatherInfo(weatherData, location) {
 
   const glassContainer = document.querySelector(".glass-container");
   glassContainer.innerHTML = `
-        <p class="location">Location: ${location}</p>
-        <p class="temperature">Temperature: ${temperature}°C</p>
-        <p class="humidity">Humidity: ${humidity} g/kg</p>
-        <p class="wind-speed">Wind Speed: ${windSpeed} Mph</p>
+      <div class="location">
+        <p>Location: ${location}</p>
+      </div>
+      <div class=temperature>
+        <p>Temperature: ${temperature}°C</p>
+      </div>
+      <div class="stats">
+        <p>Humidity: ${humidity} g/kg</p>
+        <p>Wind Speed: ${windSpeed} Mph</p>
+      </div>
     `;
 }
 
