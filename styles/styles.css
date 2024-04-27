@@ -50,6 +50,16 @@ header {
   display: flex;
 }
 
+header .icon {
+  display: none;
+}
+
+header .icon svg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 header section#left {
   width: 20%;
   display: flex;
@@ -84,6 +94,7 @@ header section#right nav ul li {
   position: relative;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 header section#right nav ul li p {
@@ -212,13 +223,16 @@ header section#right nav ul a:hover {
   top: 0;
 }
 
+@media (max-width: 768px) {
+  header {
+    font-size: 0.75rem;
+  }
 
-/* .glass-container p {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 8px;
-  color: var(--white);
-  text-align: center;
-} */
+  header .text {
+    display: none;
+  }
 
+  header .icon {
+    display: block;
+  }
+}
