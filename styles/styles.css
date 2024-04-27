@@ -6,7 +6,7 @@
 :root {
   --black: #222831;
   --gray: #31363f;
-  --teal: #76abae;
+  --blue: #0f3665;
   --white: #eeeeee;
 }
 
@@ -38,7 +38,8 @@ header {
   position: fixed;
   margin-top: 32px;
   z-index: 100;
-  width: 60vw;
+  max-width: 75vw;
+  width: 100%;
   height: 50px;
   background-color: rgba(238, 238, 238, 0.05);
   backdrop-filter: blur(10px);
@@ -79,7 +80,6 @@ header section#right nav ul {
 
 header section#right nav ul li {
   padding: 16px;
-  width: 100px;
   text-align: center;
   position: relative;
   display: flex;
@@ -91,8 +91,7 @@ header section#right nav ul li p {
 }
 
 header section#right nav ul a {
-  height: max-content;
-  width: max-content;
+  flex: 1;
   color: var(--white);
   text-decoration: none;
   transition: scale 100ms ease-in-out, border 100ms ease-in-out;
@@ -116,31 +115,34 @@ header section#right nav ul a:hover {
 }
 
 .glass-container {
-  width: 500px;
-  height: 500px;
+  max-width: 60vw;
+  max-height: 65vh;
+  width: 100%;
+  height: 100%;
   background-color: rgba(238, 238, 238, 0.05);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 16px;
   border: 1px solid rgba(238, 238, 238, 0.2);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
 }
 
-.glass-container p {
-  display: block;
+.glass-container  * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  color: var(--white);
+}
+
+/* .glass-container p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 8px;
-  border-radius: 16px;
-  background-color: var(--teal);
   color: var(--white);
   text-align: center;
-  margin-top: 16px;
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  /* Add the following properties to stack the bubbles vertically */
-  margin-top: 8px;
-  top: 5vh;
-  bottom: 0;
-  width: 50%;
-}
+} */
+
