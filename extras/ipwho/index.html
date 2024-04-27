@@ -1,62 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>What's My IP? - IPWHO - SaolGhra</title>
-    <meta name="description" content="Find out your IP address and location with IPWHO.">
-    <meta name="keywords" content="IP, IP address, location, IPWHO">
+    <meta
+      name="description"
+      content="Find out your IP address and location with IPWHO."
+    />
+    <meta name="keywords" content="IP, IP address, location, IPWHO" />
     <link rel="canonical" href="https://www.saolghra.co.uk/ipwho" />
-    <meta property="og:title" content="What's My IP? - IPWHO">
-    <meta property="og:description" content="Find out your IP address and location with IPWHO.">
-    <meta property="og:url" content="https://www.saolghra.co.uk/ipwho">
-    <link rel="icon" href="https://raw.githubusercontent.com/SaolGhra/saolghra.github.io/main/assets/icon.png" type="image/png">
-    <meta property="og:image" content="https://raw.githubusercontent.com/SaolGhra/saolghra.github.io/main/assets/icon.png">
-    <link rel="stylesheet" href="styles/styles.css">
+    <meta property="og:title" content="What's My IP? - IPWHO" />
+    <meta
+      property="og:description"
+      content="Find out your IP address and location with IPWHO."
+    />
+    <meta property="og:url" content="https://www.saolghra.co.uk/ipwho" />
+    <link
+      rel="icon"
+      href="https://raw.githubusercontent.com/SaolGhra/Atmosify/main/assets/weather-logo.png"
+      type="image/png"
+    />
+    <meta
+      property="og:image"
+      content="https://raw.githubusercontent.com/SaolGhra/Atmosify/main/assets/weather-logo.png"
+    />
+    <link rel="stylesheet" href="styles/styles.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-</head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HME8PQRCDV"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  </head>
+  <!-- Google tag (gtag.js) -->
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-HME8PQRCDV"
+  ></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
 
-  gtag('config', 'G-HME8PQRCDV');
-</script>
-<body>
+    gtag("config", "G-HME8PQRCDV");
+  </script>
+  <body>
     <!-- Cookies Modal -->
     <div id="cookies-modal" class="cookies-modal">
-        <div class="cookies-content">
-            <p>This website uses cookies to enhance user experience. By clicking "Accept", you agree to our use of cookies.</p>
-            <div class="buttons">
-                <button onclick="acceptCookies()">Accept</button>
-                <button onclick="declineCookies()">Decline</button>
-            </div>
+      <div class="cookies-content">
+        <p>
+          This website uses cookies to enhance user experience. By clicking
+          "Accept", you agree to our use of cookies.
+        </p>
+        <div class="buttons">
+          <button onclick="acceptCookies()">Accept</button>
+          <button onclick="declineCookies()">Decline</button>
         </div>
+      </div>
     </div>
 
     <!-- Dark Mode Toggle -->
     <div class="dark-mode-toggle">
-        <button id="dark-mode-button" onclick="toggleDarkMode()">
-            <img id="sun-icon" src="assets/sun.svg" width="24" height="24" style="display:inline-block">
-            <img id="moon-icon" src="assets/moon.svg" width="24" height="24" style="display:none">
-        </button>
+      <button id="dark-mode-button" onclick="toggleDarkMode()">
+        <img
+          id="sun-icon"
+          src="assets/sun.svg"
+          width="24"
+          height="24"
+          style="display: inline-block"
+        />
+        <img
+          id="moon-icon"
+          src="assets/moon.svg"
+          width="24"
+          height="24"
+          style="display: none"
+        />
+      </button>
     </div>
-    
+
     <!-- Main Content -->
     <div class="container">
-        <h1>What's My IP?</h1>
-        <p>Your IPv4 Address is: <span id="ipv4-address">Loading...</span></p>
-        <p>Your IPv6 Address is: <span id="ipv6-address">Loading...</span></p>
-        <p>Your ISP is: <span id="isp">Loading...</span></p>
-        <p>Your Location is: <span id="location">Loading...</span></p>
-        <div id="map"></div>
+      <h1>What's My IP?</h1>
+      <p>Your IPv4 Address is: <span id="ipv4-address">Loading...</span></p>
+      <p>Your IPv6 Address is: <span id="ipv6-address">Loading...</span></p>
+      <p>Your ISP is: <span id="isp">Loading...</span></p>
+      <p>Your Location is: <span id="location">Loading...</span></p>
+      <div id="map"></div>
 
-        <p style="font-size: 12px; color: #464242;">Note: This feature may be affected by ad blockers or tracker blockers.</p>
+      <p style="font-size: 12px; color: #464242">
+        Note: This feature may be affected by ad blockers or tracker blockers.
+      </p>
     </div>
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="scripts/script.js"></script>
-</body>
+  </body>
 </html>

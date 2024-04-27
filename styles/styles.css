@@ -6,13 +6,13 @@
 :root {
   --black: #222831;
   --gray: #31363f;
-  --teal: #76abae;
+  --blue: #0f3665;
   --white: #eeeeee;
 }
 
 @font-face {
   font-family: "JetBrains Mono";
-  src: url("./fonts/JetBrainsMono-Regular.ttf");
+  src: url("../fonts/JetBrainsMono-Regular.ttf");
 }
 
 ::-webkit-scrollbar {
@@ -38,7 +38,8 @@ header {
   position: fixed;
   margin-top: 32px;
   z-index: 100;
-  width: 60vw;
+  max-width: 75vw;
+  width: 100%;
   height: 50px;
   background-color: rgba(238, 238, 238, 0.05);
   backdrop-filter: blur(10px);
@@ -47,6 +48,19 @@ header {
   border: 1px solid rgba(238, 238, 238, 0.2);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   display: flex;
+  top: -50vh;
+  transition: top 0.3s ease-in-out; /* Smooth transition */
+}
+
+
+header .icon {
+  display: none;
+}
+
+header .icon svg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 header section#left {
@@ -79,11 +93,11 @@ header section#right nav ul {
 
 header section#right nav ul li {
   padding: 16px;
-  width: 100px;
   text-align: center;
   position: relative;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 header section#right nav ul li p {
@@ -91,8 +105,7 @@ header section#right nav ul li p {
 }
 
 header section#right nav ul a {
-  height: max-content;
-  width: max-content;
+  flex: 1;
   color: var(--white);
   text-decoration: none;
   transition: scale 100ms ease-in-out, border 100ms ease-in-out;
@@ -115,32 +128,116 @@ header section#right nav ul a:hover {
   align-items: center;
 }
 
-.glass-container {
-  width: 500px;
-  height: 500px;
+.container {
+  max-width: 50vw;
+  max-height: 50vh;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  justify-content: center;
+  align-items: center;
+}
+
+.container .weather {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+  color: var(--white);
+}
+
+.container .stats {
+  width: 100%;
+  aspect-ratio: 1;
+  display: grid; 
+  grid-template-columns: 1fr 1fr; 
+  grid-template-rows: 1fr 1fr; 
+  gap: 16px 16px; 
+  grid-template-areas: 
+    ". ."
+    ". ."; 
+  width: 300px; 
+  height: 300px; 
+}
+
+.container .stats * {
+  border-radius: 16px;
+  max-height: 150px;
+  height: 100%;
+  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--white);
+  border: 1px solid rgba(238, 238, 238, 0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-color: rgba(238, 238, 238, 0.05);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border-radius: 16px;
-  border: 1px solid rgba(238, 238, 238, 0.2);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.glass-container p {
-  display: block;
-  padding: 8px;
-  border-radius: 16px;
-  background-color: var(--teal);
-  color: var(--white);
-  text-align: center;
-  margin-top: 16px;
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  /* Add the following properties to stack the bubbles vertically */
-  margin-top: 8px;
-  top: 5vh;
-  bottom: 0;
-  width: 50%;
+.container .stats .real::before {
+  content: "Feels like";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid rgba(238, 238, 238, 0.2);
+  position: absolute;
+  width: 100%;
+  height: 2rem;
+  top: 0;
+}
+
+.container .stats .precipitation::before {
+  content: "Precipitaion";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid rgba(238, 238, 238, 0.2);
+  position: absolute;
+  width: 100%;
+  height: 2rem;
+  top: 0;
+}
+
+.container .stats .humidity::before {
+  content: "Humidity";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid rgba(238, 238, 238, 0.2);
+  position: absolute;
+  width: 100%;
+  height: 2rem;
+  top: 0;
+}
+
+.container .stats .windspeed::before {
+  content: "Wind Speed";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid rgba(238, 238, 238, 0.2);
+  position: absolute;
+  width: 100%;
+  height: 2rem;
+  top: 0;
+}
+
+@media (max-width: 768px) {
+  header {
+    top: 0;
+    font-size: 0.75rem;
+  }
+
+  header .text {
+    display: none;
+  }
+
+  header .icon {
+    display: block;
+  }
 }
