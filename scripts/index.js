@@ -48,7 +48,7 @@ function displayWeatherInfo(weatherData, location) {
   const glassContainer = document.querySelector(".glass-container");
   glassContainer.innerHTML = `
       <div class="weather">
-        <p>${location}</p>
+        <h2>${location}</h2>
         <p>${temperature}°C</p>
       </div>
       <div class="stats">
