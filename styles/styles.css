@@ -48,7 +48,10 @@ header {
   border: 1px solid rgba(238, 238, 238, 0.2);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   display: flex;
+  top: -50vh;
+  transition: top 0.3s ease-in-out; /* Smooth transition */
 }
+
 
 header .icon {
   display: none;
@@ -226,6 +229,7 @@ header section#right nav ul a:hover {
 
 @media (max-width: 768px) {
   header {
+    top: 0;
     font-size: 0.75rem;
   }
 
