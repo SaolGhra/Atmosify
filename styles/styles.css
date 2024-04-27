@@ -125,7 +125,7 @@ header section#right nav ul a:hover {
   align-items: center;
 }
 
-.glass-container {
+.container {
   max-width: 50vw;
   max-height: 50vh;
   width: 100%;
@@ -137,7 +137,7 @@ header section#right nav ul a:hover {
   align-items: center;
 }
 
-.glass-container .weather {
+.container .weather {
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -145,7 +145,7 @@ header section#right nav ul a:hover {
   color: var(--white);
 }
 
-.glass-container .stats {
+.container .stats {
   width: 100%;
   aspect-ratio: 1;
   display: grid; 
@@ -159,7 +159,7 @@ header section#right nav ul a:hover {
   height: 300px; 
 }
 
-.glass-container .stats * {
+.container .stats * {
   border-radius: 16px;
   max-height: 150px;
   height: 100%;
@@ -175,7 +175,7 @@ header section#right nav ul a:hover {
   -webkit-backdrop-filter: blur(10px);
 }
 
-.glass-container .stats .real::before {
+.container .stats .real::before {
   content: "Feels like";
   display: flex;
   justify-content: center;
@@ -187,7 +187,7 @@ header section#right nav ul a:hover {
   top: 0;
 }
 
-.glass-container .stats .precipitation::before {
+.container .stats .precipitation::before {
   content: "Precipitaion";
   display: flex;
   justify-content: center;
@@ -199,7 +199,7 @@ header section#right nav ul a:hover {
   top: 0;
 }
 
-.glass-container .stats .humidity::before {
+.container .stats .humidity::before {
   content: "Humidity";
   display: flex;
   justify-content: center;
@@ -211,7 +211,7 @@ header section#right nav ul a:hover {
   top: 0;
 }
 
-.glass-container .stats .windspeed::before {
+.container .stats .windspeed::before {
   content: "Wind Speed";
   display: flex;
   justify-content: center;

@@ -45,8 +45,8 @@ function displayWeatherInfo(weatherData, location) {
   const realFeel = Math.round(weatherData.current.apparent_temperature);
   const precipitation = weatherData.current.precipitation;
 
-  const glassContainer = document.querySelector(".glass-container");
-  glassContainer.innerHTML = `
+  const container = document.querySelector(".container");
+  container.innerHTML = `
       <div class="weather">
         <h2>${location}</h2>
         <p>${temperature}°C</p>
