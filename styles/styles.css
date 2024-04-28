@@ -136,7 +136,8 @@ header section#right nav ul a:hover {
   height: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: center;
+  gap: 64px;
   align-items: center;
 }
 
@@ -169,14 +170,14 @@ header section#right nav ul a:hover {
   grid-template-rows: 1fr 1fr; 
   gap: 16px 16px; 
   grid-template-areas: 
-    ". . ."
-    ". . ."; 
+    ". . . ."
+    ". . . ."; 
   max-width: 400px; 
   max-height: 400px; 
-  margin-right: 128px;
+  margin-right: auto;
 }
 
-.container .stats * {
+.container .stats *:not(.winddirection-degrees):not(.compass-hand) {
   border-radius: 16px;
   max-height: 250px;
   height: 100%;
@@ -248,6 +249,24 @@ header section#right nav ul a:hover {
   top: 0;
 }
 
+.container .stats .winddirection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.container .stats .winddirection-degrees {
+  height: 112.5px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  font-size: 1rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .container .stats .winddirection::before {
   content: "Wind Direction";
   display: flex;
@@ -260,8 +279,68 @@ header section#right nav ul a:hover {
   top: 0;
 }
 
+.container .stats .winddirection .compass-hand {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  transform-origin: center center;
+}
+
+.container .stats .winddirection .compass-hand:before {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 20px solid rgba(255, 0, 0, 0.8);
+  border-radius: 10px;
+  left: 50%;
+  margin-bottom: 90px;
+  transform: translateX(-50%);
+}
+
+.container .stats .winddirection .compass-hand:after {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 20px solid rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  left: 50%;
+  margin-top: 90px;
+  transform: translateX(-50%);
+}
+
 .container .stats .cloudcoverage::before {
   content: "Cloud Coverage";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid rgba(238, 238, 238, 0.2);
+  position: absolute;
+  width: 100%;
+  height: 2rem;
+  top: 0;
+}
+
+.container .stats .visibility::before {
+  content: "Visibility";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid rgba(238, 238, 238, 0.2);
+  position: absolute;
+  width: 100%;
+  height: 2rem;
+  top: 0;
+}
+
+.container .stats .uvindex::before {
+  content: "UV Index";
   display: flex;
   justify-content: center;
   align-items: center;
@@ -306,5 +385,16 @@ header section#right nav ul a:hover {
         ". ." 1fr / 1fr 1fr;
     margin-right: 0;
   }
-  
+
+  .container .stats .winddirection .compass-hand:after {
+    margin-top: 90px;
+  }
+
+  .container .stats .winddirection .compass-hand:before {
+    margin-bottom: 90px;
+  }
+
+  .container .stats .winddirection-degrees {
+    height: 90px;
+  }
 }
