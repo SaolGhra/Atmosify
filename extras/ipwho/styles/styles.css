@@ -141,6 +141,10 @@ body {
     color: #5a5a5a;
 }
 
+.leaflet-popup-content-container {
+    display: none;
+}
+
 @media (max-width: 768px) {
     .container .ipwho-info {
         flex-direction: column;
