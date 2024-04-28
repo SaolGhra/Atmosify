@@ -20,7 +20,7 @@ window.onload = function () {
           fetch(`https://ipinfo.io/${ipv4Address}/json`)
             .then((response) => {
               if (!response.ok) {
-                throw new Error("Failed to fetch location data");
+                throw new Error(`HTTP error! status: ${response.status}`);
               }
               return response.json();
             })
@@ -54,7 +54,6 @@ window.onload = function () {
     .catch((error) => {
       console.error("Error fetching IPv4 address:", error);
     });
-
 
   console.log("Page loaded");
   showCookiesModalIfNeeded();
