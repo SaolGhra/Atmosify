@@ -142,8 +142,11 @@ body {
     color: #5a5a5a;
 }
 
-.leaflet-popup-content-container {
+.leaflet-popup-tip {
+    width: 0;
+    height: 0;
     display: none;
+    opacity: 0;
 }
 
 @media (max-width: 768px) {
