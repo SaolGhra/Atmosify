@@ -2,6 +2,8 @@
 const startButton = document.getElementById("start-button");
 const resultsElement = document.getElementById("result");
 
+window.location.replace("https://www.saolghra.co.uk/403");
+
 function startTest() {
   Promise.all([
     uploadTest().catch((error) => console.error("Error in uploadTest:", error)),
