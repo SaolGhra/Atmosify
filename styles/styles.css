@@ -130,8 +130,7 @@ header section#right nav ul a:hover {
 }
 
 .container {
-  max-width: 90vw;
-  max-height: 50vh;
+  max-height: 100vh;
   width: 100%;
   height: 100%;
   display: flex;
@@ -163,25 +162,23 @@ header section#right nav ul a:hover {
 }
 
 .container .stats {
-  width: 100%;
-  aspect-ratio: 1;
   display: grid; 
-  grid-template-columns: 1fr 1fr; 
-  grid-template-rows: 1fr 1fr; 
-  gap: 16px 16px; 
-  grid-template-areas: 
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 16px;
+  grid-template-areas:
     ". . . ."
-    ". . . ."; 
-  max-width: 400px; 
-  max-height: 400px; 
-  margin-right: auto;
+    ". . . .";
 }
 
 .container .stats *:not(.winddirection-degrees):not(.compass-hand) {
   border-radius: 16px;
-  max-height: 250px;
   height: 100%;
-  aspect-ratio: 1;
+  width: 100%;
+  min-height: 200px;
+  min-width: 200px;
+  max-height: 500px;
+  max-width: 500px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -369,6 +366,7 @@ header section#right nav ul a:hover {
     flex-direction: column;
     justify-content: center;
     gap: 32px;
+    margin-top: 250px;
   }
 
   .container .weather {
@@ -384,6 +382,11 @@ header section#right nav ul a:hover {
         ". ." 1fr
         ". ." 1fr / 1fr 1fr;
     margin-right: 0;
+  }
+
+  .container .stats *:not(.winddirection-degrees):not(.compass-hand) {
+    min-width: 150px;
+    min-height: 150px;
   }
 
   .container .stats .winddirection .compass-hand:after {
