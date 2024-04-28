@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>What's My IP? - IPWHO - SaolGhra</title>
+    <title>IPWho</title>
     <meta
       name="description"
       content="Find out your IP address and location with IPWHO."
@@ -43,6 +43,8 @@
     gtag("config", "G-HME8PQRCDV");
   </script>
   <body>
+    <div id="particles-js"></div>
+    
     <!-- Cookies Modal -->
     <div id="cookies-modal" class="cookies-modal">
       <div class="cookies-content">
@@ -79,13 +81,17 @@
 
     <!-- Main Content -->
     <div class="container">
-      <h1>What's My IP?</h1>
-      <p>Your IPv4 Address is: <span id="ipv4-address">Loading...</span></p>
-      <p>Your IPv6 Address is: <span id="ipv6-address">Loading...</span></p>
-      <p>Your ISP is: <span id="isp">Loading...</span></p>
-      <p>Your Location is: <span id="location">Loading...</span></p>
-      <div id="map"></div>
+      <div class="ipwho-info">
+        <div class="text-info">
+          <h1>What's My IP?</h1>
+          <p>Your IPv4 Address is: <span id="ipv4-address">Loading...</span></p>
+          <p>Your IPv6 Address is: <span id="ipv6-address">Loading...</span></p>
+          <p>Your ISP is: <span id="isp">Loading...</span></p>
+          <p>Your Location is: <span id="location">Loading...</span></p>
+        </div>
 
+        <div id="map"></div>
+      </div>
       <p style="font-size: 12px; color: #464242">
         Note: This feature may be affected by ad blockers or tracker blockers.
       </p>
@@ -93,5 +99,8 @@
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="scripts/script.js"></script>
+    <script src="./scripts/particlesbg.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="scripts/particlesbg.js"></script>
   </body>
 </html>

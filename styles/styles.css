@@ -129,7 +129,7 @@ header section#right nav ul a:hover {
 }
 
 .container {
-  max-width: 50vw;
+  max-width: 90vw;
   max-height: 50vh;
   width: 100%;
   height: 100%;
@@ -159,13 +159,13 @@ header section#right nav ul a:hover {
   grid-template-areas: 
     ". ."
     ". ."; 
-  width: 300px; 
-  height: 300px; 
+  max-width: 500px; 
+  max-height: 500px; 
 }
 
 .container .stats * {
   border-radius: 16px;
-  max-height: 150px;
+  max-height: 250px;
   height: 100%;
   aspect-ratio: 1;
   display: flex;
@@ -176,7 +176,15 @@ header section#right nav ul a:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-color: rgba(238, 238, 238, 0.05);
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);;
+}
+
+.container .stats p {
+  font-size: clamp(1rem, 2vw, 2rem);
+}
+
+.container .stats *::before {
+  font-size: 1rem;
 }
 
 .container .stats .real::before {
