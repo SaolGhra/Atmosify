@@ -166,12 +166,4 @@ function resetBall() {
   ballSpeedY = Math.random() > 0.5 ? -2 : 2;
 }
 
-window.addEventListener("resize", () => {
-  if (window.innerWidth < 768) {
-    container.style.height = "80vh";
-  } else {
-    container.style.height = "100vh";
-  }
-});
-
 update();
