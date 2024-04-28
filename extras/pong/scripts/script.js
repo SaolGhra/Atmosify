@@ -3,15 +3,17 @@ const leftPaddle = document.getElementById("leftPaddle");
 const rightPaddle = document.getElementById("rightPaddle");
 const ball = document.getElementById("ball");
 const scoreDisplay = document.getElementById("score");
+const joystick = document.getElementById("joystick");
 
 let ballX = container.offsetWidth / 2;
 let ballY = container.offsetHeight / 2;
 let ballSpeedX = 2;
 let ballSpeedY = 2;
 const paddleSpeed = 5;
-const aiSpeed = 2;
+const aiSpeed = 1.65;
 let playerScore = 0;
 let aiScore = 0;
+let joystickPressed = false;
 
 // Flag to track key states
 const keys = {
@@ -36,6 +38,42 @@ document.addEventListener("keyup", (event) => {
   }
 });
 
+// Add event listeners for joystick touch events
+joystick.addEventListener("touchstart", (event) => {
+  event.preventDefault();
+  joystickPressed = true;
+});
+
+joystick.addEventListener("touchmove", (event) => {
+  event.preventDefault();
+  if (joystickPressed) {
+    moveJoystick(event);
+  }
+});
+
+joystick.addEventListener("touchend", (event) => {
+  event.preventDefault();
+  joystickPressed = false;
+  keys.w = false;
+  keys.s = false;
+});
+
+// Function to move the joystick and control the paddle
+function moveJoystick(event) {
+  const touch = event.touches[0];
+  const joystickRect = joystick.getBoundingClientRect();
+  const centerJoystickY = joystickRect.top + joystickRect.height / 2;
+  const distanceY = touch.clientY - centerJoystickY;
+
+  if (distanceY > 0) {
+    keys.w = false;
+    keys.s = true;
+  } else {
+    keys.w = true;
+    keys.s = false;
+  }
+}
+
 function update() {
   movePaddle();
   moveAI();
@@ -58,18 +96,24 @@ function movePaddle() {
 }
 
 function moveAI() {
-  if (ballY > rightPaddle.offsetTop + rightPaddle.offsetHeight / 2) {
-    if (
-      rightPaddle.offsetTop <
-      container.offsetHeight - rightPaddle.offsetHeight
-    ) {
-      rightPaddle.style.top = rightPaddle.offsetTop + aiSpeed + "px";
+  const reactionDelay = 500;
+  setTimeout(() => {
+    if (ballX > container.offsetWidth / 2) {
+      const targetY = ballY - rightPaddle.offsetHeight / 2;
+
+      const minY = 0;
+      const maxY = container.offsetHeight - rightPaddle.offsetHeight;
+      const limitedTargetY = Math.max(minY, Math.min(maxY, targetY));
+
+      const distance = limitedTargetY - rightPaddle.offsetTop;
+
+      const direction = Math.sign(distance);
+      const moveSpeed = Math.min(Math.abs(distance), aiSpeed);
+
+      rightPaddle.style.top =
+        rightPaddle.offsetTop + direction * moveSpeed + "px";
     }
-  } else if (ballY < rightPaddle.offsetTop + rightPaddle.offsetHeight / 2) {
-    if (rightPaddle.offsetTop > 0) {
-      rightPaddle.style.top = rightPaddle.offsetTop - aiSpeed + "px";
-    }
-  }
+  }, reactionDelay);
 }
 
 function moveBall() {
@@ -82,27 +126,29 @@ function moveBall() {
 
   if (
     ballX <= leftPaddle.offsetWidth &&
-    ballY >= leftPaddle.offsetTop &&
+    ballY + ball.offsetHeight >= leftPaddle.offsetTop &&
     ballY <= leftPaddle.offsetTop + leftPaddle.offsetHeight
   ) {
     ballSpeedX = -ballSpeedX;
   }
 
   if (
-    ballX >=
-      container.offsetWidth - rightPaddle.offsetWidth - ball.offsetWidth &&
-    ballY >= rightPaddle.offsetTop &&
+    ballX + ball.offsetWidth >=
+      container.offsetWidth - rightPaddle.offsetWidth &&
+    ballY + ball.offsetHeight >= rightPaddle.offsetTop &&
     ballY <= rightPaddle.offsetTop + rightPaddle.offsetHeight
   ) {
     ballSpeedX = -ballSpeedX;
   }
 
   if (ballX <= 0) {
+    resetBall();
     aiScore++;
+  }
+
+  if (ballX >= container.offsetWidth - ball.offsetWidth) {
     resetBall();
-  } else if (ballX >= container.offsetWidth - ball.offsetWidth) {
     playerScore++;
-    resetBall();
   }
 
   ball.style.left = ballX + "px";
@@ -119,5 +165,13 @@ function resetBall() {
   ballSpeedX *= -1;
   ballSpeedY = Math.random() > 0.5 ? -2 : 2;
 }
+
+window.addEventListener("resize", () => {
+  if (window.innerWidth < 768) {
+    container.style.height = "80vh";
+  } else {
+    container.style.height = "100vh";
+  }
+});
 
 update();

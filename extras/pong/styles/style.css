@@ -1,0 +1,92 @@
+body,
+html {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: black;
+}
+
+.paddle {
+  width: 10px;
+  height: 80px;
+  background-color: white;
+  position: absolute;
+}
+
+#leftPaddle {
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#rightPaddle {
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#ball {
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  position: absolute;
+}
+
+#score {
+  color: white;
+  font-size: 24px;
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#joystick {
+  width: 80px;
+  height: 80px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 20%; /* Add padding to increase space between paddles */
+  }
+
+  .paddle {
+    width: 10px;
+    height: 80px; /* Adjust the height of paddles for mobile */
+  }
+
+  #leftPaddle,
+  #rightPaddle {
+    width: 10px; /* Ensure both paddles are visible on mobile */
+  }
+
+  #score {
+    color: white;
+    font-size: 24px;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  #joystick {
+    display: block;
+  }
+}
