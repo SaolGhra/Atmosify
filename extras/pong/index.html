@@ -21,6 +21,7 @@
       href="https://raw.githubusercontent.com/SaolGhra/Atmosify/main/assets/weather-logo.png"
       type="image/png"
     />
+    <meta name="theme-color" content="#222831" />
     <meta
       property="og:image"
       content="https://raw.githubusercontent.com/SaolGhra/Atmosify/main/assets/weather-logo.png"
@@ -42,6 +43,30 @@
     gtag("config", "G-DM2XWGP7G1");
   </script>
   <body>
+    <div id="particles-js"></div>
+
+    <button id="pauseButton">P</button>
+
+    <div id="cover"></div>
+    <div class="start-menu">
+      <button id="backtomenu"></button>
+      <h1>Pong</h1>
+      <div class="buttons">
+        <button id="startAIButton">P1 vs AI</button>
+        <button id="start1v1Button">P1 vs P2</button>
+      </div>
+    </div>
+
+    <div class="game-over-menu">
+      <h1>Game Over</h1>
+      <div class="score">
+        <p>Your Score:</p>
+        <p id="finalScore">0</p>
+      </div>
+      <button id="restartButton">Restart</button>
+      <a href="">Main Menu</a>
+    </div>
+
     <div class="container">
       <div id="leftPaddle" class="paddle"></div>
       <div id="rightPaddle" class="paddle"></div>
@@ -50,6 +75,8 @@
       <div id="joystick"></div>
     </div>
 
-    <script src="scripts/script.js"></script>
+    <script type="module" src="scripts/menu.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="scripts/particlesbg.js"></script>
   </body>
 </html>

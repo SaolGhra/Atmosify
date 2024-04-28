@@ -14,8 +14,12 @@ async function getWeatherData(latitude, longitude) {
       "showers",
       "snowfall",
       "wind_direction_10m",
+      "cloud_cover",
+      "is_day",
       "weather_code",
     ],
+    daily: "uv_index_max",
+    hourly: "visibility",
     wind_speed_unit: "mph",
     timeformat: "unixtime",
   });
@@ -39,11 +43,19 @@ function displayWeatherInfo(weatherData, location) {
     return;
   }
 
+  const currentDate = new Date();
+  const currentHour = currentDate.getHours();
+  const currentDay = currentDate.getDay();
+
   const temperature = Math.round(weatherData.current.temperature_2m);
   const humidity = weatherData.current.relative_humidity_2m;
   const windSpeed = weatherData.current.wind_speed_10m;
   const realFeel = Math.round(weatherData.current.apparent_temperature);
   const precipitation = weatherData.current.precipitation;
+  const windDirection = weatherData.current.wind_direction_10m;
+  const cloudCoverage = weatherData.current.cloud_cover;
+  const visibility = weatherData.hourly.visibility[currentHour];
+  const uvIndex = weatherData.daily.uv_index_max[currentDay];
 
   const container = document.querySelector(".container");
   container.innerHTML = `
@@ -55,8 +67,15 @@ function displayWeatherInfo(weatherData, location) {
       <div class="stats">
         <p class="real">${realFeel}°C</p>
         <p class="precipitation">${precipitation} mm</p>
-        <p class="humidity">${humidity} g/kg</p>
+        <p class="humidity">${((humidity / (humidity + 1000)) * 100).toFixed(2)}%</p>
         <p class="windspeed">${windSpeed} Mph</p>
+        <p class="cloudcoverage">${cloudCoverage}%</p>
+        <p class="visibility">${visibility/1000} km</p>
+        <p class="uvindex">${uvIndex} km</p>
+        <div class=winddirection>
+          <p class=winddirection-degrees>${windDirection}°</p>
+          <div class=compass-hand style="transform: rotate(${windDirection + "deg"})"></div>
+        </div>
       </div>
     `;
 }

@@ -21,10 +21,11 @@
 }
 
 body {
-  overflow: hidden;
+  overflow-x: hidden;
   display: flex;
   justify-content: center;
   font-family: "JetBrains Mono", sans-serif;
+  background-color: var(--black);
 }
 
 #particles-js {
@@ -129,45 +130,55 @@ header section#right nav ul a:hover {
 }
 
 .container {
-  max-width: 90vw;
-  max-height: 50vh;
+  max-height: 100vh;
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: column;
-  gap: 32px;
+  flex-direction: row;
   justify-content: center;
+  gap: 64px;
   align-items: center;
 }
 
 .container .weather {
   display: flex;
   justify-content: center;
-  flex-direction: row;
+  flex-direction: column;
   gap: 8px;
   align-items: center;
   color: var(--white);
 }
 
-.container .stats {
-  width: 100%;
-  aspect-ratio: 1;
-  display: grid; 
-  grid-template-columns: 1fr 1fr; 
-  grid-template-rows: 1fr 1fr; 
-  gap: 16px 16px; 
-  grid-template-areas: 
-    ". ."
-    ". ."; 
-  max-width: 500px; 
-  max-height: 500px; 
+.container .weather h2 {
+  font-size: clamp(1rem, 5vw, 5rem);
 }
 
-.container .stats * {
+.container .weather p {
+  font-size: clamp(1rem, 2.5vw, 2.5rem);
+}
+
+.container .weather .divider {
+  display: none;
+}
+
+.container .stats {
+  display: grid; 
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 16px;
+  grid-template-areas:
+    ". . . ."
+    ". . . .";
+}
+
+.container .stats *:not(.winddirection-degrees):not(.compass-hand) {
   border-radius: 16px;
-  max-height: 250px;
   height: 100%;
-  aspect-ratio: 1;
+  width: 100%;
+  min-height: 200px;
+  min-width: 200px;
+  max-height: 500px;
+  max-width: 500px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -235,6 +246,132 @@ header section#right nav ul a:hover {
   top: 0;
 }
 
+.container .stats .winddirection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.container .stats .winddirection-degrees {
+  height: 112.5px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  font-size: 1rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container .stats .winddirection::before {
+  content: "Wind Direction";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid rgba(238, 238, 238, 0.2);
+  position: absolute;
+  width: 100%;
+  height: 2rem;
+  top: 0;
+}
+
+.container .stats .winddirection .compass-hand {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  transform-origin: center center;
+}
+
+.container .stats .winddirection .compass-hand:before {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 20px solid rgba(255, 0, 0, 0.8);
+  border-radius: 10px;
+  left: 50%;
+  margin-bottom: 90px;
+  transform: translateX(-50%);
+}
+
+.container .stats .winddirection .compass-hand:after {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 20px solid rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  left: 50%;
+  margin-top: 90px;
+  transform: translateX(-50%);
+}
+
+.container .stats .cloudcoverage::before {
+  content: "Cloud Coverage";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid rgba(238, 238, 238, 0.2);
+  position: absolute;
+  width: 100%;
+  height: 2rem;
+  top: 0;
+}
+
+.container .stats .visibility::before {
+  content: "Visibility";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid rgba(238, 238, 238, 0.2);
+  position: absolute;
+  width: 100%;
+  height: 2rem;
+  top: 0;
+}
+
+.container .stats .uvindex::before {
+  content: "UV Index";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid rgba(238, 238, 238, 0.2);
+  position: absolute;
+  width: 100%;
+  height: 2rem;
+  top: 0;
+}
+
+@media (min-height: 666px) and (pointer: coarse) {
+  .container {
+    margin-top: 40vh;
+  }
+}
+
+@media (min-height: 740px) and (pointer: coarse) {
+  .container {
+    margin-top: 30vh;
+  }
+}
+
+@media (min-height: 844px) and (pointer: coarse) {
+  .container {
+    margin-top: 10vh;
+  }
+}
+
+@media (min-height: 896px) and (pointer: coarse) {
+  .container {
+    margin-top: 5vh;
+  }
+}
+
 @media (max-width: 768px) {
   header {
     top: 0;
@@ -247,5 +384,43 @@ header section#right nav ul a:hover {
 
   header .icon {
     display: block;
+  }
+
+  .container {
+    flex-direction: column;
+    justify-content: center;
+    gap: 32px;
+  }
+
+  .container .weather {
+    flex-direction: row;
+  }
+
+  .container .weather .divider {
+    display: block;
+  }
+
+  .container .stats {
+    grid-template:
+        ". ." 1fr
+        ". ." 1fr / 1fr 1fr;
+    margin-right: 0;
+  }
+
+  .container .stats *:not(.winddirection-degrees):not(.compass-hand) {
+    min-width: 150px;
+    min-height: 150px;
+  }
+
+  .container .stats .winddirection .compass-hand:after {
+    margin-top: 90px;
+  }
+
+  .container .stats .winddirection .compass-hand:before {
+    margin-bottom: 90px;
+  }
+
+  .container .stats .winddirection-degrees {
+    height: 90px;
   }
 }

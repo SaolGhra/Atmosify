@@ -14,6 +14,7 @@ const aiSpeed = 1.65;
 let playerScore = 0;
 let aiScore = 0;
 let joystickPressed = false;
+let isGamePaused = false;
 
 // Flag to track key states
 const keys = {
@@ -75,10 +76,12 @@ function moveJoystick(event) {
 }
 
 function update() {
-  movePaddle();
-  moveAI();
-  moveBall();
-  checkScore();
+  if (!isGamePaused) {
+    movePaddle();
+    moveAI();
+    moveBall();
+    checkScore();
+  }
 
   requestAnimationFrame(update);
 }
@@ -164,6 +167,58 @@ function resetBall() {
   ballY = container.offsetHeight / 2;
   ballSpeedX *= -1;
   ballSpeedY = Math.random() > 0.5 ? -2 : 2;
+}
+
+const backToMenu = document.querySelector("#backtomenu");
+
+backToMenu.addEventListener("click", () => {
+  window.history.go(-1);
+});
+
+const SinglePlayerButton = document.querySelector("#startAIButton");
+const VSButton = document.querySelector("#start1v1Button");
+const cover = document.querySelector("#cover");
+const menu = document.querySelector(".start-menu");
+const pauseButton = document.querySelector("#pauseButton");
+
+window.onload = function() {
+  pauseButton.style.display = "none";
+  cover.style.transition = "all 100ms ease-in-out";
+  menu.style.transition = "all 100ms ease-in-out";
+  cover.style.opacity = 1;
+  menu.style.opacity = 1;
+};
+
+function hideMenu() {
+  setTimeout(() => {
+    pauseButton.style.display = "block";
+    cover.style.display = "none";
+    menu.style.display = "none";
+  }, 100);
+}
+
+function showMenu() {
+  pauseButton.style.display = "none";
+  cover.style.display = "block";
+  menu.style.display = "flex";
+  setTimeout(() => {
+    pauseGame();
+  }, 100);
+}
+
+SinglePlayerButton.addEventListener("click", hideMenu);
+VSButton.addEventListener("click", hideMenu);
+
+pauseButton.addEventListener("click", showMenu);
+
+// Pause Game
+function pauseGame() {
+  isGamePaused = true;
+}
+
+// Resume Game
+function resumeGame() {
+  isGamePaused = false;
 }
 
 update();
