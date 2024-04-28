@@ -14,8 +14,11 @@ async function getWeatherData(latitude, longitude) {
       "showers",
       "snowfall",
       "wind_direction_10m",
+      "cloud_cover",
+      "is_day",
       "weather_code",
     ],
+    hourly: "visibility",
     wind_speed_unit: "mph",
     timeformat: "unixtime",
   });
@@ -44,6 +47,8 @@ function displayWeatherInfo(weatherData, location) {
   const windSpeed = weatherData.current.wind_speed_10m;
   const realFeel = Math.round(weatherData.current.apparent_temperature);
   const precipitation = weatherData.current.precipitation;
+  const windDirection = weatherData.current.wind_direction_10m;
+  const cloudCoverage = weatherData.current.cloud_cover;
 
   const container = document.querySelector(".container");
   container.innerHTML = `
@@ -57,6 +62,8 @@ function displayWeatherInfo(weatherData, location) {
         <p class="precipitation">${precipitation} mm</p>
         <p class="humidity">${humidity} g/kg</p>
         <p class="windspeed">${windSpeed} Mph</p>
+        <p class="winddirection">${windDirection}°</p>
+        <p class="cloudcoverage">${cloudCoverage}%</p>
       </div>
     `;
 }
