@@ -348,6 +348,30 @@ header section#right nav ul a:hover {
   top: 0;
 }
 
+@media (min-height: 666px) and (pointer: coarse) {
+  .container {
+    margin-top: 40vh;
+  }
+}
+
+@media (min-height: 740px) and (pointer: coarse) {
+  .container {
+    margin-top: 30vh;
+  }
+}
+
+@media (min-height: 844px) and (pointer: coarse) {
+  .container {
+    margin-top: 10vh;
+  }
+}
+
+@media (min-height: 896px) and (pointer: coarse) {
+  .container {
+    margin-top: 5vh;
+  }
+}
+
 @media (max-width: 768px) {
   header {
     top: 0;
@@ -366,7 +390,6 @@ header section#right nav ul a:hover {
     flex-direction: column;
     justify-content: center;
     gap: 32px;
-    margin-top: 250px;
   }
 
   .container .weather {
