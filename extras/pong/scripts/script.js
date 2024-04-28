@@ -172,18 +172,22 @@ backToMenu.addEventListener('click', () => {
   window.history.go(-1);
 });
 
-
 const SinglePlayerButton = document.querySelector("#startAIButton");
 const VSButton = document.querySelector('#start1v1Button');
 const cover = document.querySelector("#cover");
-const menu = document.querySelector('.start-menu')
+const menu = document.querySelector('.start-menu');
+const pauseButton = document.querySelector('#pauseButton');
 
+pauseButton.style.display = 'none';
 cover.style.transition = "all 100ms ease-in-out";
 menu.style.transition = "all 100ms ease-in-out";
+cover.style.opacity = 1;
+menu.style.opacity = 1;
 
 SinglePlayerButton.addEventListener("click", () => {
   cover.style.opacity = 0;
   menu.style.opacity = 0;
+  pauseButton.style.display = 'block';
 
   setTimeout(() => {
     cover.style.display = "none";
@@ -195,12 +199,24 @@ SinglePlayerButton.addEventListener("click", () => {
 VSButton.addEventListener("click", () => {
   cover.style.opacity = 0;
   menu.style.opacity = 0;
+  pauseButton.style.display = 'block';
 
   setTimeout(() => {
     cover.style.display = "none";
     menu.style.display = "none";
   }, 1000);
 
+});
+
+pauseButton.addEventListener('click', () => {
+  pauseButton.style.display = 'none';
+  cover.style.display = 'block';
+  menu.style.display = 'flex';
+
+  setTimeout(() => {
+    cover.style.opacity = 1;
+    menu.style.opacity = 1;
+  }, 100);
 });
 
 update();
