@@ -14,6 +14,7 @@ const aiSpeed = 1.65;
 let playerScore = 0;
 let aiScore = 0;
 let joystickPressed = false;
+let isGamePaused = false;
 
 // Flag to track key states
 const keys = {
@@ -75,10 +76,12 @@ function moveJoystick(event) {
 }
 
 function update() {
-  movePaddle();
-  moveAI();
-  moveBall();
-  checkScore();
+  if (!isGamePaused) {
+    movePaddle();
+    moveAI();
+    moveBall();
+    checkScore();
+  }
 
   requestAnimationFrame(update);
 }
@@ -166,19 +169,19 @@ function resetBall() {
   ballSpeedY = Math.random() > 0.5 ? -2 : 2;
 }
 
-const backToMenu = document.querySelector('#backtomenu');
+const backToMenu = document.querySelector("#backtomenu");
 
-backToMenu.addEventListener('click', () => {
+backToMenu.addEventListener("click", () => {
   window.history.go(-1);
 });
 
 const SinglePlayerButton = document.querySelector("#startAIButton");
-const VSButton = document.querySelector('#start1v1Button');
+const VSButton = document.querySelector("#start1v1Button");
 const cover = document.querySelector("#cover");
-const menu = document.querySelector('.start-menu');
-const pauseButton = document.querySelector('#pauseButton');
+const menu = document.querySelector(".start-menu");
+const pauseButton = document.querySelector("#pauseButton");
 
-pauseButton.style.display = 'none';
+pauseButton.style.display = "none";
 cover.style.transition = "all 100ms ease-in-out";
 menu.style.transition = "all 100ms ease-in-out";
 cover.style.opacity = 1;
@@ -187,36 +190,45 @@ menu.style.opacity = 1;
 SinglePlayerButton.addEventListener("click", () => {
   cover.style.opacity = 0;
   menu.style.opacity = 0;
-  pauseButton.style.display = 'block';
+  pauseButton.style.display = "block";
 
   setTimeout(() => {
     cover.style.display = "none";
     menu.style.display = "none";
   }, 1000);
-
 });
 
 VSButton.addEventListener("click", () => {
   cover.style.opacity = 0;
   menu.style.opacity = 0;
-  pauseButton.style.display = 'block';
+  pauseButton.style.display = "block";
 
   setTimeout(() => {
     cover.style.display = "none";
     menu.style.display = "none";
   }, 1000);
-
 });
 
-pauseButton.addEventListener('click', () => {
-  pauseButton.style.display = 'none';
-  cover.style.display = 'block';
-  menu.style.display = 'flex';
+pauseButton.addEventListener("click", () => {
+  pauseButton.style.display = "none";
+  cover.style.display = "block";
+  menu.style.display = "flex";
 
   setTimeout(() => {
+    pauseGame();
     cover.style.opacity = 1;
     menu.style.opacity = 1;
   }, 100);
 });
+
+// Pause Game
+function pauseGame() {
+  isGamePaused = true;
+}
+
+// Resume Game
+function resumeGame() {
+  isGamePaused = false;
+}
 
 update();
