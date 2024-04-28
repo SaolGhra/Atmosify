@@ -181,45 +181,35 @@ const cover = document.querySelector("#cover");
 const menu = document.querySelector(".start-menu");
 const pauseButton = document.querySelector("#pauseButton");
 
-pauseButton.style.display = "none";
-cover.style.transition = "all 100ms ease-in-out";
-menu.style.transition = "all 100ms ease-in-out";
-cover.style.opacity = 1;
-menu.style.opacity = 1;
+window.onload = function() {
+  pauseButton.style.display = "none";
+  cover.style.transition = "all 100ms ease-in-out";
+  menu.style.transition = "all 100ms ease-in-out";
+  cover.style.opacity = 1;
+  menu.style.opacity = 1;
+};
 
-SinglePlayerButton.addEventListener("click", () => {
-  cover.style.opacity = 0;
-  menu.style.opacity = 0;
-  pauseButton.style.display = "block";
-
+function hideMenu() {
   setTimeout(() => {
+    pauseButton.style.display = "block";
     cover.style.display = "none";
     menu.style.display = "none";
-  }, 1000);
-});
+  }, 100);
+}
 
-VSButton.addEventListener("click", () => {
-  cover.style.opacity = 0;
-  menu.style.opacity = 0;
-  pauseButton.style.display = "block";
-
-  setTimeout(() => {
-    cover.style.display = "none";
-    menu.style.display = "none";
-  }, 1000);
-});
-
-pauseButton.addEventListener("click", () => {
+function showMenu() {
   pauseButton.style.display = "none";
   cover.style.display = "block";
   menu.style.display = "flex";
-
   setTimeout(() => {
     pauseGame();
-    cover.style.opacity = 1;
-    menu.style.opacity = 1;
   }, 100);
-});
+}
+
+SinglePlayerButton.addEventListener("click", hideMenu);
+VSButton.addEventListener("click", hideMenu);
+
+pauseButton.addEventListener("click", showMenu);
 
 // Pause Game
 function pauseGame() {
