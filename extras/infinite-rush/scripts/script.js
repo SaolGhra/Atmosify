@@ -1,161 +1,123 @@
-const canvas = document.getElementById("gameCanvas");
-const ctx = canvas.getContext("2d");
+const container = document.querySelector(".container");
+const leftPaddle = document.getElementById("leftPaddle");
+const rightPaddle = document.getElementById("rightPaddle");
+const ball = document.getElementById("ball");
+const scoreDisplay = document.getElementById("score");
 
-// Set canvas dimensions
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+let ballX = container.offsetWidth / 2;
+let ballY = container.offsetHeight / 2;
+let ballSpeedX = 2;
+let ballSpeedY = 2;
+const paddleSpeed = 5;
+const aiSpeed = 2;
+let playerScore = 0;
+let aiScore = 0;
 
-// Player object
-const player = {
-  x: canvas.width / 2,
-  y: canvas.height / 2,
-  size: 20,
-  color: "#fff",
-  speed: 5,
+// Flag to track key states
+const keys = {
+  w: false,
+  s: false,
 };
 
-// Background variables
-let bgSpeed = 1;
-let bgX = 0;
+// Event listeners to track keydown and keyup events
+document.addEventListener("keydown", (event) => {
+  if (event.key === "w") {
+    keys.w = true;
+  } else if (event.key === "s") {
+    keys.s = true;
+  }
+});
 
-// Obstacle variables
-let obstacles = [];
-const obstacleSize = 20;
-const obstacleSpeed = 5;
-let spawnRate = 90;
-let score = 0;
+document.addEventListener("keyup", (event) => {
+  if (event.key === "w") {
+    keys.w = false;
+  } else if (event.key === "s") {
+    keys.s = false;
+  }
+});
 
-// Keyboard event listeners
-document.addEventListener("keydown", keyDown);
-document.addEventListener("keyup", keyUp);
+function update() {
+  movePaddle();
+  moveAI();
+  moveBall();
+  checkScore();
 
-// Functions for handling keyboard events
-function keyDown(e) {
-  if (e.key === "w" || e.key === "W" || e.key === "ArrowUp") {
-    player.y -= player.speed;
-  } else if (e.key === "s" || e.key === "S" || e.key === "ArrowDown") {
-    player.y += player.speed;
-  } else if (e.key === "a" || e.key === "A" || e.key === "ArrowLeft") {
-    player.x -= player.speed;
-  } else if (e.key === "d" || e.key === "D" || e.key === "ArrowRight") {
-    player.x += player.speed;
+  requestAnimationFrame(update);
+}
+
+function movePaddle() {
+  if (keys.w && leftPaddle.offsetTop > 0) {
+    leftPaddle.style.top = leftPaddle.offsetTop - paddleSpeed + "px";
+  }
+  if (
+    keys.s &&
+    leftPaddle.offsetTop < container.offsetHeight - leftPaddle.offsetHeight
+  ) {
+    leftPaddle.style.top = leftPaddle.offsetTop + paddleSpeed + "px";
   }
 }
 
-function keyUp(e) {
-  // Add any necessary key release actions
-}
-
-// Function to draw player
-function drawPlayer() {
-  ctx.fillStyle = player.color;
-  ctx.beginPath();
-  ctx.arc(player.x, player.y, player.size, 0, Math.PI * 2);
-  ctx.fill();
-}
-
-// Function to draw obstacles
-function drawObstacles() {
-  ctx.fillStyle = "#ff0000";
-  for (let i = 0; i < obstacles.length; i++) {
-    ctx.fillRect(obstacles[i].x, obstacles[i].y, obstacleSize, obstacleSize);
-  }
-}
-
-// Function to move obstacles
-function moveObstacles() {
-  for (let i = 0; i < obstacles.length; i++) {
-    obstacles[i].x -= obstacleSpeed;
-  }
-
-  // Remove obstacles that have passed
-  obstacles = obstacles.filter((obstacle) => obstacle.x > 0);
-
-  // Increase score when passing obstacles
-  score += obstacleSpeed / 10;
-}
-
-// Function to spawn obstacles
-function spawnObstacles() {
-  if (Math.random() < 1 / spawnRate) {
-    obstacles.push({
-      x: canvas.width,
-      y: Math.random() * (canvas.height - obstacleSize),
-    });
-  }
-}
-
-// Function to draw background
-function drawBackground() {
-  ctx.fillStyle = "#000";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  ctx.fillStyle = "#666";
-  ctx.fillRect(bgX, 0, canvas.width, canvas.height);
-  ctx.fillRect(bgX - canvas.width, 0, canvas.width, canvas.height);
-}
-
-// Function to move background
-function moveBackground() {
-  bgX -= bgSpeed;
-  if (bgX <= -canvas.width) bgX = 0;
-}
-
-// Function to update score
-function updateScore() {
-  ctx.fillStyle = "#fff";
-  ctx.font = "20px Arial";
-  ctx.fillText("Score: " + Math.floor(score), 10, 30);
-}
-
-// Function to detect collisions
-function checkCollisions() {
-  for (let i = 0; i < obstacles.length; i++) {
+function moveAI() {
+  if (ballY > rightPaddle.offsetTop + rightPaddle.offsetHeight / 2) {
     if (
-      player.x < obstacles[i].x + obstacleSize &&
-      player.x + player.size > obstacles[i].x &&
-      player.y < obstacles[i].y + obstacleSize &&
-      player.y + player.size > obstacles[i].y
+      rightPaddle.offsetTop <
+      container.offsetHeight - rightPaddle.offsetHeight
     ) {
-      // Collision detected
-      alert("Game Over! Your score: " + Math.floor(score));
-      document.location.reload();
+      rightPaddle.style.top = rightPaddle.offsetTop + aiSpeed + "px";
+    }
+  } else if (ballY < rightPaddle.offsetTop + rightPaddle.offsetHeight / 2) {
+    if (rightPaddle.offsetTop > 0) {
+      rightPaddle.style.top = rightPaddle.offsetTop - aiSpeed + "px";
     }
   }
 }
 
-// Main game loop
-function gameLoop() {
-  // Clear canvas
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+function moveBall() {
+  ballX += ballSpeedX;
+  ballY += ballSpeedY;
 
-  // Draw background
-  drawBackground();
+  if (ballY <= 0 || ballY >= container.offsetHeight - ball.offsetHeight) {
+    ballSpeedY = -ballSpeedY;
+  }
 
-  // Draw player
-  drawPlayer();
+  if (
+    ballX <= leftPaddle.offsetWidth &&
+    ballY >= leftPaddle.offsetTop &&
+    ballY <= leftPaddle.offsetTop + leftPaddle.offsetHeight
+  ) {
+    ballSpeedX = -ballSpeedX;
+  }
 
-  // Move obstacles
-  moveObstacles();
+  if (
+    ballX >=
+      container.offsetWidth - rightPaddle.offsetWidth - ball.offsetWidth &&
+    ballY >= rightPaddle.offsetTop &&
+    ballY <= rightPaddle.offsetTop + rightPaddle.offsetHeight
+  ) {
+    ballSpeedX = -ballSpeedX;
+  }
 
-  // Draw obstacles
-  drawObstacles();
+  if (ballX <= 0) {
+    aiScore++;
+    resetBall();
+  } else if (ballX >= container.offsetWidth - ball.offsetWidth) {
+    playerScore++;
+    resetBall();
+  }
 
-  // Spawn obstacles
-  spawnObstacles();
-
-  // Move background
-  moveBackground();
-
-  // Update score
-  updateScore();
-
-  // Check for collisions
-  checkCollisions();
-
-  // Request animation frame
-  requestAnimationFrame(gameLoop);
+  ball.style.left = ballX + "px";
+  ball.style.top = ballY + "px";
 }
 
-// Start the game loop
-gameLoop();
+function checkScore() {
+  scoreDisplay.textContent = `Player: ${playerScore} - AI: ${aiScore}`;
+}
+
+function resetBall() {
+  ballX = container.offsetWidth / 2;
+  ballY = container.offsetHeight / 2;
+  ballSpeedX *= -1;
+  ballSpeedY = Math.random() > 0.5 ? -2 : 2;
+}
+
+update();
