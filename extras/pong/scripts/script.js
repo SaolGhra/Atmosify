@@ -166,4 +166,41 @@ function resetBall() {
   ballSpeedY = Math.random() > 0.5 ? -2 : 2;
 }
 
+const backToMenu = document.querySelector('#backtomenu');
+
+backToMenu.addEventListener('click', () => {
+  window.history.go(-1);
+});
+
+
+const SinglePlayerButton = document.querySelector("#startAIButton");
+const VSButton = document.querySelector('#start1v1Button');
+const cover = document.querySelector("#cover");
+const menu = document.querySelector('.start-menu')
+
+cover.style.transition = "all 100ms ease-in-out";
+menu.style.transition = "all 100ms ease-in-out";
+
+SinglePlayerButton.addEventListener("click", () => {
+  cover.style.opacity = 0;
+  menu.style.opacity = 0;
+
+  setTimeout(() => {
+    cover.style.display = "none";
+    menu.style.display = "none";
+  }, 1000);
+
+});
+
+VSButton.addEventListener("click", () => {
+  cover.style.opacity = 0;
+  menu.style.opacity = 0;
+
+  setTimeout(() => {
+    cover.style.display = "none";
+    menu.style.display = "none";
+  }, 1000);
+
+});
+
 update();
