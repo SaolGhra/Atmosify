@@ -55,15 +55,6 @@ window.onload = function () {
       console.error("Error fetching IPv4 address:", error);
     });
 
-  const body = document.body;
-  const isDarkMode = getCookie("darkMode") === "true";
-
-  // Apply dark mode preference from cookie
-  if (isDarkMode) {
-    body.classList.add("dark-mode");
-    document.getElementById("sun-icon").style.display = "none";
-    document.getElementById("moon-icon").style.display = "block";
-  }
 
   console.log("Page loaded");
   showCookiesModalIfNeeded();
@@ -77,24 +68,6 @@ function initMap(latitude, longitude) {
     .addTo(map)
     .bindPopup("Your Location")
     .openPopup();
-}
-
-// Function to toggle dark mode
-function toggleDarkMode() {
-  const body = document.body;
-  const sunIcon = document.getElementById("sun-icon");
-  const moonIcon = document.getElementById("moon-icon");
-
-  // Toggle dark mode class on body
-  body.classList.toggle("dark-mode");
-
-  // Toggle visibility of sun and moon icons
-  sunIcon.style.display = sunIcon.style.display === "none" ? "block" : "none";
-  moonIcon.style.display = moonIcon.style.display === "none" ? "block" : "none";
-
-  // Set dark mode preference in cookie
-  const isDarkMode = body.classList.contains("dark-mode");
-  setCookie("darkMode", isDarkMode ? "true" : "false", 365);
 }
 
 // Function to set a cookie

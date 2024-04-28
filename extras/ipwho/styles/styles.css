@@ -4,8 +4,15 @@
     font-family: Roboto, sans-serif;
 }
 
+:root {
+    --black: #222831;
+    --gray: #31363f;
+    --blue: #0f3665;
+    --white: #eeeeee;
+}
+  
 body {
-    background-color: #cfc6ca;
+    background-color: var(--black);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -30,6 +37,91 @@ body {
     border-radius: 2.5px;
 }
 
+header {
+    position: fixed;
+    margin-top: 32px;
+    z-index: 100;
+    max-width: 75vw;
+    width: 100%;
+    height: 50px;
+    background-color: rgba(238, 238, 238, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 8px;
+    border: 1px solid rgba(238, 238, 238, 0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    top: -50vh;
+    transition: top 0.3s ease-in-out; /* Smooth transition */
+}
+  
+  
+header .icon {
+    display: none;
+}
+  
+header .icon svg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+header section#left {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+header section#left img {
+    width: 40px;
+    aspect-ratio: 1;
+}
+  
+header section#right {
+    width: 80%;
+    display: flex;
+    align-items: center;
+}
+  
+header section#right nav {
+    width: 100%;
+}
+  
+header section#right nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-evenly;
+}
+  
+header section#right nav ul li {
+    padding: 16px;
+    text-align: center;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+header section#right nav ul li p {
+    margin-left: 8px;
+}
+  
+header section#right nav ul a {
+    flex: 1;
+    color: var(--white);
+    text-decoration: none;
+    transition: scale 100ms ease-in-out, border 100ms ease-in-out;
+}
+  
+header section#right nav ul a:hover {
+    scale: 1.25;
+    background-color: var(--gray);
+    border-radius: 8px;
+    z-index: 100;
+    border: 1px solid rgba(238, 238, 238, 0.2);
+}
+  
 .container {
     border-radius: 16px;
     max-width: 75vh;
@@ -161,16 +253,30 @@ body {
 }
 
 @media (max-width: 768px) {
-    .container .ipwho-info {
-        flex-direction: column;
-    }
-
     .container {
-        margin-top: 16px;
+        margin-top: 100px;
         max-width: none;
         width: 75vw;
         position: absolute;
         top: 0;
         transform: none;
     }
+
+    .container .ipwho-info {
+        flex-direction: column;
+    }
+
+    header {
+        top: 0;
+        font-size: 0.75rem;
+      }
+    
+      header .text {
+        display: none;
+      }
+    
+      header .icon {
+        display: block;
+      }
+    
 }
