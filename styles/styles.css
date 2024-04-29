@@ -276,29 +276,29 @@ header section#right nav ul a:hover {
 
 @media (min-height: 666px) and (pointer: coarse) {
   .container {
-    margin-top: 40vh;
+    margin-top: 300px;
   }
 }
 
 @media (min-height: 740px) and (pointer: coarse) {
   .container {
-    margin-top: 30vh;
+    margin-top: 250px;
   }
 }
 
 @media (min-height: 844px) and (pointer: coarse) {
   .container {
-    margin-top: 10vh;
+    margin-top: 125px;
   }
 }
 
 @media (min-height: 896px) and (pointer: coarse) {
   .container {
-    margin-top: 5vh;
+    margin-top: 75px;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 768px) or (max-width: 820px) or (max-width: 1366px){
   header {
     top: 0;
     font-size: 0.75rem;
