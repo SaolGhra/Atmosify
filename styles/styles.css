@@ -150,7 +150,7 @@ header section#right nav ul a:hover {
 }
 
 .container .weather h2 {
-  font-size: clamp(1rem, 5vw, 5rem);
+  font-size: clamp(1rem, 2.5vw, 3rem);
 }
 
 .container .weather p {
@@ -305,7 +305,7 @@ header section#right nav ul a:hover {
   }
 }
 
-@media (max-width: 768px) or (max-width: 820px) or (max-width: 1366px){
+@media (max-width: 768px) or (pointer: coarse) or (max-width: 820px) or (max-width: 1366px) {
   header {
     top: 0;
     font-size: 0.75rem;
