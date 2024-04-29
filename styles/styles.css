@@ -274,6 +274,13 @@ header section#right nav ul a:hover {
   transform: translateX(-50%);
 }
 
+
+@media (min-height: 100px) and (pointer: coarse) {
+  .container {
+    margin-top: 400px;
+  }
+}
+
 @media (min-height: 666px) and (pointer: coarse) {
   .container {
     margin-top: 300px;
