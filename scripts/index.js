@@ -65,16 +65,40 @@ function displayWeatherInfo(weatherData, location) {
         <p>${temperature}°C</p>
       </div>
       <div class="stats">
-        <p class="real">${realFeel}°C</p>
-        <p class="precipitation">${precipitation} mm</p>
-        <p class="humidity">${((humidity / (humidity + 1000)) * 100).toFixed(2)}%</p>
-        <p class="windspeed">${windSpeed} Mph</p>
-        <p class="cloudcoverage">${cloudCoverage}%</p>
-        <p class="visibility">${visibility/1000} km</p>
-        <p class="uvindex">${uvIndex} km</p>
+        <div class="real">
+          <p class="title">Real Feel</p>
+          <p class="real text">${realFeel}°C</p>
+        </div>
+        <div class="precipitation">
+          <p class="title">Precipitation</p>
+          <p class="precipitation text">${precipitation} mm</p>
+        </div>
+        <div class="humidity">
+          <p class="title">Precipitation</p>
+          <p class="humidity text">${((humidity / (humidity + 1000)) * 100).toFixed(2)}%</p>
+        </div>
+        <div class="windspeed">
+          <p class="title">Wind Speed</p>
+          <p class="windspeed text">${windSpeed} Mph</p>
+        </div>
+        <div class="cloudcoverage">
+          <p class="title">Cloud Coverage</p>
+          <p class="cloudcoverage text">${cloudCoverage}%</p>
+        </div>
+        <div class="visibility">
+          <p class="title">Visibility</p>
+          <p class="visibility text">${visibility/1000} km</p>
+        </div>
+        <div class="uvindex">
+          <p class="title">UV Index</p>
+          <p class="uvindex text">${uvIndex} km</p>
+        </div>
         <div class=winddirection>
-          <p class=winddirection-degrees>${windDirection}°</p>
-          <div class=compass-hand style="transform: rotate(${windDirection + "deg"})"></div>
+          <p class="title">Wind Direction</p>
+          <div class="winddirection-container">
+            <p class="winddirection text">${windDirection}°</p>
+            <div class=compass-hand style="transform: rotate(${windDirection + "deg"})"></div>
+          </div>
         </div>
       </div>
     `;
