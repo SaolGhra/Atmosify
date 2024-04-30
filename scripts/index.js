@@ -19,9 +19,10 @@ async function getWeatherData(latitude, longitude) {
       "weather_code",
     ],
     daily: "uv_index_max",
-    hourly: "visibility",
+    hourly: ["visibility", "temperature_2m"],
     wind_speed_unit: "mph",
     timeformat: "unixtime",
+    forecast_days: 1,
   });
 
   const apiUrl = `https://api.open-meteo.com/v1/forecast?${params.toString()}`;
@@ -48,6 +49,7 @@ function displayWeatherInfo(weatherData, location) {
   const currentDay = currentDate.getDay();
 
   const temperature = Math.round(weatherData.current.temperature_2m);
+  const hourlyTemp = weatherData.hourly.temperature_2m;
   const humidity = weatherData.current.relative_humidity_2m;
   const windSpeed = weatherData.current.wind_speed_10m;
   const realFeel = Math.round(weatherData.current.apparent_temperature);
@@ -62,7 +64,14 @@ function displayWeatherInfo(weatherData, location) {
       <div class="weather">
         <h2>${location}</h2>
         <span class="divider">|</span>
-        <p>${temperature}°C</p>
+        <p class="overallTemp">${temperature}°C</p>
+        <div class="hourlyWeather">
+          ${weatherData.hourly.temperature_2m.map((temp, index) => `
+          <div class="hourTemp-card">
+              <p>${index}:00</p>
+              <p>${temp}°C</p>
+          </div>`).join('')}
+        </div>
       </div>
       <div class="stats">
         <div class="real">
