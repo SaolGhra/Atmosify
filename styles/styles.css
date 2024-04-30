@@ -424,7 +424,7 @@ header section#right nav ul a:hover {
   body {
     overflow-x: hidden;
   }
-  
+
   header {
     top: 0;
     font-size: 0.75rem;
@@ -460,6 +460,7 @@ header section#right nav ul a:hover {
   }
   
   .weather {
+    opacity: 0;
     background-color: rgba(238, 238, 238, 0.05);
     border-radius: 16px;
     backdrop-filter: blur(10px);
@@ -495,7 +496,7 @@ header section#right nav ul a:hover {
   }
 
   .hourlyWeather {
-    width: 65vw;
+    width: 90%;
     gap: 8px;
     scale: 1;
     margin-top: 32px;
