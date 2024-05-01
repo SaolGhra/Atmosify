@@ -45,6 +45,12 @@ function hideMenu() {
 //   }
 // }
 
+const backToMenu = document.querySelector("#backtomenu");
+
+backToMenu.addEventListener("click", () => {
+  window.history.go(-1);
+});
+
 const pauseButton = document.querySelector("#pauseButton");
 
 pauseButton.addEventListener("click", () => {

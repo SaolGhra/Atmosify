@@ -274,36 +274,157 @@ header section#right nav ul a:hover {
   transform: translateX(-50%);
 }
 
+.hourlyWeather {
+  position: relative;
+  display: flex;
+  gap: 32px;
+  width: 500px;
+  scale: 0;
+  height: 0;
+  overflow-x: scroll;
+  transition: scale 500ms cubic-bezier(0.075, 0.82, 0.165, 1);
+  padding-bottom: 16px;
+}
+
+.overallTemp {
+  position: relative;
+}
+
+.weather .overallTemp::before {
+  content: '';
+  position: absolute;
+  z-index: 10;
+  height: 8px;
+  border-radius: 4px;
+  width: 100%;
+  margin-top: 64px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.weather:hover .hourlyWeather {
+  margin-top: 32px;
+  height: max-content;
+  scale: 1;
+}
+
+.weather:hover .overallTemp:before {
+  animation: zoomOut 250ms ease-in-out forwards;
+}
+
+.weather:not(:hover) .overallTemp::before {
+  animation: zoomIn 250ms ease-in-out forwards;
+}
+
+.weather {
+  transition: 500ms ease-in-out;
+}
+
+.weather:hover {
+  background-color: rgba(238, 238, 238, 0.05);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 32px;
+  animation: addBorder 250ms ease-in-out forwards 500ms;
+}
+
+.hourTemp-card p:nth-of-type(1) {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 2px;
+}
+
+@keyframes zoomOut {
+  from {
+    scale: 1;
+  }
+  to {
+    scale: 0;
+  }
+}
+
+
+@keyframes zoomIn {
+  from {
+    scale: 0;
+  }
+  to {
+    scale: 1;
+  }
+}
+
+@keyframes addBorder {
+  from {
+    border: 2px solid transparent;
+  }
+  to {
+    border: 2px solid rgba(238, 238, 238, 0.2);
+  }
+}
+
+.hourlyWeather .hourTemp-card {
+  background-color: rgba(238, 238, 238, 0.05);
+  height: max-content;
+  width: 400px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 8px;
+  border: 1px solid rgba(238, 238, 238, 0.2);
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 8px; 
+  text-align: center;
+}
+
+.hourlyWeather::-webkit-scrollbar {
+  width: 5px;
+  background-color: transparent;
+}
+
+.hourlyWeather::-webkit-scrollbar-thumb {
+  background-color: white;
+  border-radius: 8px;
+}
+
 
 @media (min-height: 100px) and (pointer: coarse) {
   .container {
-    margin-top: 400px;
+    margin-top: 650px;
   }
 }
 
 @media (min-height: 666px) and (pointer: coarse) {
   .container {
-    margin-top: 300px;
+    margin-top: 550px;
   }
 }
 
 @media (min-height: 740px) and (pointer: coarse) {
   .container {
-    margin-top: 250px;
+    margin-top: 450px;
   }
 }
 
 @media (min-height: 844px) and (pointer: coarse) {
   .container {
-    margin-top: 125px;
+    margin-top: 325px;
   }
 }
 
 @media (min-height: 896px) and (pointer: coarse) {
   .container {
-    margin-top: 75px;
+    margin-top: 275px;
   }
 }
+
+@media (max-width: 768px) or (max-width: 820px) or (max-width: 1366px){
+  body {
+    overflow-x: hidden;
+  }
+
 
 @media (max-width: 768px) or (pointer: coarse) or (max-width: 820px) or (max-width: 1366px) {
   header {
@@ -326,11 +447,11 @@ header section#right nav ul a:hover {
   }
 
   .container .weather {
-    flex-direction: row;
+    flex-direction: column;
   }
 
   .container .weather .divider {
-    display: block;
+    display: none;
   }
 
   .container .stats {
@@ -338,6 +459,25 @@ header section#right nav ul a:hover {
         ". ." 1fr
         ". ." 1fr / 1fr 1fr;
     margin-right: 0;
+  }
+  
+  .weather {
+    opacity: 0;
+    background-color: rgba(238, 238, 238, 0.05);
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 32px;
+    border: 2px solid rgba(238, 238, 238, 0.2);
+  }
+
+  .weather:hover .overallTemp::before {
+    animation: none;
+  }
+
+  .weather .overallTemp::before {
+    margin-top: 32px;
+    height: 4px;
   }
 
   .container .stats div:not(.winddirection-degrees):not(.compass-hand) {
@@ -357,4 +497,11 @@ header section#right nav ul a:hover {
     margin-bottom: 50px;
   }
 
+  .hourlyWeather {
+    width: 90%;
+    gap: 8px;
+    scale: 1;
+    margin-top: 32px;
+    height: max-content;
+  }
 }
