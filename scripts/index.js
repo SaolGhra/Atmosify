@@ -57,7 +57,7 @@ function displayWeatherInfo(weatherData, location) {
   const windDirection = weatherData.current.wind_direction_10m;
   const cloudCoverage = weatherData.current.cloud_cover;
   const visibility = weatherData.hourly.visibility[currentHour];
-  const uvIndex = weatherData.daily.uv_index_max[currentDay];
+  const uvIndex = weatherData.daily.uv_index_max;
 
   const container = document.querySelector(".container");
   container.innerHTML = `
@@ -66,11 +66,15 @@ function displayWeatherInfo(weatherData, location) {
         <span class="divider">|</span>
         <p class="overallTemp">${temperature}°C</p>
         <div class="hourlyWeather">
-          ${weatherData.hourly.temperature_2m.map((temp, index) => `
+          ${weatherData.hourly.temperature_2m
+            .map(
+              (temp, index) => `
           <div class="hourTemp-card">
               <p>${index}:00</p>
               <p>${temp}°C</p>
-          </div>`).join('')}
+          </div>`
+            )
+            .join("")}
         </div>
       </div>
       <div class="stats">
@@ -84,7 +88,10 @@ function displayWeatherInfo(weatherData, location) {
         </div>
         <div class="humidity">
           <p class="title">Precipitation</p>
-          <p class="humidity text">${((humidity / (humidity + 1000)) * 100).toFixed(2)}%</p>
+          <p class="humidity text">${(
+            (humidity / (humidity + 1000)) *
+            100
+          ).toFixed(2)}%</p>
         </div>
         <div class="windspeed">
           <p class="title">Wind Speed</p>
@@ -96,7 +103,7 @@ function displayWeatherInfo(weatherData, location) {
         </div>
         <div class="visibility">
           <p class="title">Visibility</p>
-          <p class="visibility text">${visibility/1000} km</p>
+          <p class="visibility text">${visibility / 1000} km</p>
         </div>
         <div class="uvindex">
           <p class="title">UV Index</p>
@@ -106,11 +113,43 @@ function displayWeatherInfo(weatherData, location) {
           <p class="title">Wind Direction</p>
           <div class="winddirection-container">
             <p class="winddirection text">${windDirection}°</p>
-            <div class=compass-hand style="transform: rotate(${windDirection + "deg"})"></div>
+            <div class=compass-hand style="transform: rotate(${
+              windDirection + "deg"
+            })"></div>
           </div>
         </div>
       </div>
     `;
+}
+
+// Function to show location popup
+function showLocationPopup() {
+  const popupContainer = document.querySelector(".popup-container");
+  const popup = document.createElement("div");
+  popup.classList.add("location-popup");
+  popup.innerHTML = `
+    <div class="popup-content">
+      <span class="close-popup">&times;</span>
+      <h3>Location Required</h3>
+      <p>We require your location to show you accurate weather information.</p>
+      <button class="enable-location-btn">Enable Location</button>
+    </div>
+  `;
+
+  // Close popup when clicking on the close button
+  const closeBtn = popup.querySelector(".close-popup");
+  closeBtn.addEventListener("click", () => {
+    popupContainer.removeChild(popup);
+  });
+
+  // Add event listener to the "Enable Location" button
+  const enableLocationBtn = popup.querySelector(".enable-location-btn");
+  enableLocationBtn.addEventListener("click", () => {
+    getGeolocation();
+    popupContainer.removeChild(popup);
+  });
+
+  popupContainer.appendChild(popup);
 }
 
 // Function to get user's geolocation
@@ -138,6 +177,23 @@ function getGeolocation() {
       },
       (error) => {
         console.error("Error getting geolocation:", error);
+        if (error.code === error.PERMISSION_DENIED) {
+          // Show location popup
+          showLocationPopup();
+          const defaultLatitude = 51.5074;
+          const defaultLongitude = -0.1278;
+          const defaultLocation = "London";
+          getWeatherData(defaultLatitude, defaultLongitude)
+            .then((weatherData) => {
+              displayWeatherInfo(weatherData, defaultLocation);
+            })
+            .catch((error) => {
+              console.error(
+                "Error fetching weather data for default location:",
+                error
+              );
+            });
+        }
       }
     );
   } else {
@@ -145,5 +201,4 @@ function getGeolocation() {
   }
 }
 
-// Call the function to get geolocation and weather data
 getGeolocation();
