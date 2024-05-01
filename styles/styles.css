@@ -53,7 +53,6 @@ header {
   transition: top 0.3s ease-in-out; /* Smooth transition */
 }
 
-
 header .icon {
   display: none;
 }
@@ -162,7 +161,7 @@ header section#right nav ul a:hover {
 }
 
 .container .stats {
-  display: grid; 
+  display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 16px;
@@ -223,7 +222,7 @@ header section#right nav ul a:hover {
   margin: 10px;
   max-height: 250px;
   aspect-ratio: 1;
-} 
+}
 
 .container .stats *::before {
   font-size: 1rem;
@@ -291,7 +290,7 @@ header section#right nav ul a:hover {
 }
 
 .weather .overallTemp::before {
-  content: '';
+  content: "";
   position: absolute;
   z-index: 10;
   height: 8px;
@@ -343,7 +342,6 @@ header section#right nav ul a:hover {
   }
 }
 
-
 @keyframes zoomIn {
   from {
     scale: 0;
@@ -375,8 +373,12 @@ header section#right nav ul a:hover {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 8px; 
+  gap: 8px;
   text-align: center;
+}
+
+.hourTemp-card p {
+  min-width: 190px;
 }
 
 .hourlyWeather::-webkit-scrollbar {
@@ -388,7 +390,6 @@ header section#right nav ul a:hover {
   background-color: white;
   border-radius: 8px;
 }
-
 
 @media (min-height: 100px) and (pointer: coarse) {
   .container {
@@ -420,88 +421,123 @@ header section#right nav ul a:hover {
   }
 }
 
-@media (max-width: 768px) or (max-width: 820px) or (max-width: 1366px){
+@media (max-width: 768px) or (max-width: 820px) or (max-width: 1366px) {
   body {
     overflow-x: hidden;
   }
 
+  @media (max-width: 768px) or (pointer: coarse) or (max-width: 820px) or (max-width: 1366px) {
+    header {
+      top: 0;
+      font-size: 0.75rem;
+    }
 
-@media (max-width: 768px) or (pointer: coarse) or (max-width: 820px) or (max-width: 1366px) {
-  header {
-    top: 0;
-    font-size: 0.75rem;
-  }
+    header .text {
+      display: none;
+    }
 
-  header .text {
-    display: none;
-  }
+    header .icon {
+      display: block;
+    }
 
-  header .icon {
-    display: block;
-  }
+    .container {
+      flex-direction: column;
+      justify-content: center;
+      gap: 32px;
+    }
 
-  .container {
-    flex-direction: column;
-    justify-content: center;
-    gap: 32px;
-  }
+    .container .weather {
+      flex-direction: column;
+    }
 
-  .container .weather {
-    flex-direction: column;
-  }
+    .container .weather .divider {
+      display: none;
+    }
 
-  .container .weather .divider {
-    display: none;
-  }
-
-  .container .stats {
-    grid-template:
+    .container .stats {
+      grid-template:
         ". ." 1fr
         ". ." 1fr / 1fr 1fr;
-    margin-right: 0;
-  }
-  
-  .weather {
-    opacity: 0;
-    background-color: rgba(238, 238, 238, 0.05);
-    border-radius: 16px;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    padding: 32px;
-    border: 2px solid rgba(238, 238, 238, 0.2);
-  }
+      margin-right: 0;
+    }
 
-  .weather:hover .overallTemp::before {
-    animation: none;
-  }
+    .weather {
+      opacity: 0;
+      background-color: rgba(238, 238, 238, 0.05);
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 32px;
+      border: 2px solid rgba(238, 238, 238, 0.2);
+    }
 
-  .weather .overallTemp::before {
-    margin-top: 32px;
-    height: 4px;
-  }
+    .weather:hover .overallTemp::before {
+      animation: none;
+    }
 
-  .container .stats div:not(.winddirection-degrees):not(.compass-hand) {
-    min-width: 150px;
-    min-height: 150px;
-  }
+    .weather .overallTemp::before {
+      margin-top: 32px;
+      height: 4px;
+    }
 
-  .container .stats .winddirection .text {
-    height: 75px;
-  }
+    .container .stats div:not(.winddirection-degrees):not(.compass-hand) {
+      min-width: 150px;
+      min-height: 150px;
+    }
 
-  .container .stats .winddirection .compass-hand:after {
-    margin-top: 50px;
-  }
+    .container .stats .winddirection .text {
+      height: 75px;
+    }
 
-  .container .stats .winddirection .compass-hand:before {
-    margin-bottom: 50px;
-  }
+    .container .stats .winddirection .compass-hand:after {
+      margin-top: 50px;
+    }
 
-  .hourlyWeather {
-    width: 90%;
-    gap: 8px;
-    scale: 1;
-    margin-top: 32px;
-    height: max-content;
+    .container .stats .winddirection .compass-hand:before {
+      margin-bottom: 50px;
+    }
+
+    .hourlyWeather {
+      width: 90%;
+      gap: 8px;
+      scale: 1;
+      margin-top: 32px;
+      height: max-content;
+    }
   }
+}
+
+/* Scripting for locaiton popup */
+
+.location-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--gray);
+  border-radius: 10px;
+  color: var(--white);
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+}
+
+.popup-content {
+  text-align: center;
+}
+
+.close-popup {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.enable-location-btn {
+  background-color: var(--blue);
+  color: var(--white);
+  border-radius: 40px;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-top: 10px;
 }
