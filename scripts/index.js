@@ -46,10 +46,8 @@ function displayWeatherInfo(weatherData, location) {
 
   const currentDate = new Date();
   const currentHour = currentDate.getHours();
-  const currentDay = currentDate.getDay();
 
   const temperature = Math.round(weatherData.current.temperature_2m);
-  const hourlyTemp = weatherData.hourly.temperature_2m;
   const humidity = weatherData.current.relative_humidity_2m;
   const windSpeed = weatherData.current.wind_speed_10m;
   const realFeel = Math.round(weatherData.current.apparent_temperature);
@@ -87,7 +85,7 @@ function displayWeatherInfo(weatherData, location) {
           <p class="precipitation text">${precipitation} mm</p>
         </div>
         <div class="humidity">
-          <p class="title">Precipitation</p>
+          <p class="title">Humidity</p>
           <p class="humidity text">${(
             (humidity / (humidity + 1000)) *
             100
@@ -120,6 +118,34 @@ function displayWeatherInfo(weatherData, location) {
         </div>
       </div>
     `;
+
+  const hourlyWeather = document.querySelector(".hourlyWeather");
+  const hourCardWidth =
+    hourlyWeather.querySelector(".hourTemp-card").offsetWidth + 32;
+
+  hourlyWeather.addEventListener("wheel", (event) => {
+    event.preventDefault();
+    const scrollAmount = Math.sign(event.deltaY) * hourCardWidth;
+    hourlyWeather.scrollBy({
+      left: scrollAmount,
+      behavior: "smooth",
+    });
+  });
+
+  const currentTime = new Date().getHours();
+
+  const currentHourCard = document.querySelector(
+    `.hourTemp-card:nth-child(${currentTime + 1})`
+  );
+
+  hourlyWeather.scrollTo({
+    left:
+      currentHourCard.offsetLeft -
+      hourlyWeather.offsetWidth / 2 +
+      currentHourCard.offsetWidth +
+      16,
+    behavior: "smooth",
+  });
 }
 
 // Function to show location popup
