@@ -391,6 +391,62 @@ header section#right nav ul a:hover {
   border-radius: 8px;
 }
 
+.location-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(238, 238, 238, 0.05);
+  border: 1px solid rgba(238, 238, 238, 0.2);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  color: var(--white);
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+}
+
+.popup-content {
+  text-align: center;
+  display: flex;
+  gap: 16px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content h3 {
+  font-size: 1.25rem;
+}
+
+.close-popup {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.enable-location-btn {
+  background-color: rgba(255, 255, 255, 0.5);
+  color: var(--black);
+  border-radius: 16px;
+  padding: 10px 20px;
+  width: max-content;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  border: 2px solid var(--white);
+  margin-top: 10px;
+  transition: 300ms ease-in-out;
+}
+
+.enable-location-btn:hover {
+  scale: 1.1
+}
+
+
 @media (min-height: 100px) and (pointer: coarse) {
   .container {
     margin-top: 650px;
@@ -505,39 +561,4 @@ header section#right nav ul a:hover {
       height: max-content;
     }
   }
-}
-
-/* Scripting for locaiton popup */
-
-.location-popup {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: var(--gray);
-  border-radius: 10px;
-  color: var(--white);
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  z-index: 9999;
-}
-
-.popup-content {
-  text-align: center;
-}
-
-.close-popup {
-  position: absolute;
-  top: 5px;
-  right: 10px;
-  cursor: pointer;
-}
-
-.enable-location-btn {
-  background-color: var(--blue);
-  color: var(--white);
-  border-radius: 40px;
-  padding: 10px 20px;
-  cursor: pointer;
-  margin-top: 10px;
 }
